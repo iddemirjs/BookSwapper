@@ -52,6 +52,6 @@
     </footer>
 </div>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-<script src="landing/main.js"></script>
+<script src="<?= base_url('landing/main.js'); ?>"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.2/dist/paper.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="landing/main.css">
+    <link rel="stylesheet" href="<?= base_url('landing/main.css'); ?>">
 </head>
 <body>
 <header>
