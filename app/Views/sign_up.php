@@ -41,7 +41,7 @@
 
 
             <br>
-            <div style="align-items:center; display:flex;float:right">
+            <div style="float:right">
                 <button class="btn-outline-primary" type="submit">SignUp</button>
             </div>
 
