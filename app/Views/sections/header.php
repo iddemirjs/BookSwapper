@@ -21,7 +21,7 @@
         <div class="m_menu">
             <button onclick="menu()" class="menu_close">&times;</button>
             <ul class="normal">
-                <li><a href="" class="active">Home</a></li>
+                <li><a href="<?= base_url('home');?>" class="active">Home</a></li>
                 <li><a href="">About</a></li>
                 <li><a href="">Contact</a></li>
                 <li class="menu_o">
@@ -35,7 +35,7 @@
             </ul>
             <ul class="user">
                 <li><a class="button signin" href="">SignIn</a></li>
-                <li><a class="button signup" href="">SignUp</a></li>
+                <li><a class="button signup" href="<?= base_url('home/signUp');?>">SignUp</a></li>
             </ul>
         </div>
     </nav>
