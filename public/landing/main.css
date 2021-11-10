@@ -3,6 +3,17 @@
     padding: 0;
     box-sizing: border-box;
 }
+.form-group input {
+    width: 100%;
+}
+.form-group .paper-switch-tile{
+    height: 47px;
+    margin-top: 20px;
+}
+.form-group .paper-switch-tile-card div {
+    line-height: 47px;
+    width: 100%;
+}
 /* Start Header */
 header {
     display: flex;
