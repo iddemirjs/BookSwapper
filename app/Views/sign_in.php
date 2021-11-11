@@ -7,11 +7,11 @@
             </div>
             <div class="form-group col sm-2">
                 <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input type="text" placeholder="Enter Username" name="uname" required style="width: fit-content">
             </div>
-            <div class="form-group col sm-2">
+            <div class="form-group col sm-2" style="width: fit-content">
                 <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input type="password" placeholder="Enter Password" name="psw" required style="width: fit-content">
             </div>
         </div>
         <div style="display:flex;justify-content: center">

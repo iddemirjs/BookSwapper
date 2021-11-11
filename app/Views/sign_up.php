@@ -5,8 +5,8 @@
     <div class="row" style="display:flex;padding:10px 20px;flex: 1;">
 
             <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="name"><b>Username</b></label>
-                <input type="text" placeholder="Enter Name" name="name" required>
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
             </div>
 
             <div class="form-group sm-6" style="padding-left: 5px">
@@ -15,13 +15,13 @@
             </div>
 
             <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="surname"><b>Name</b></label>
-                <input type="text" placeholder="Enter Surname" name="surname" required>
+                <label for="name"><b>Name</b></label>
+                <input type="text" placeholder="Enter Name" name="name" required>
             </div>
 
             <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <label for="surname"><b>Surname</b></label>
+                <input type="text" placeholder="Enter Surname" name="surname" required>
             </div>
 
             <div class="form-group sm-6" style="padding-left: 5px">
