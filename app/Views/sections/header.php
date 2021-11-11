@@ -34,7 +34,7 @@
                 </li>
             </ul>
             <ul class="user">
-                <li><a class="button signin" href="">SignIn</a></li>
+                <li><a class="button signin" href="<?= base_url('home/signIn');?>">SignIn</a></li>
                 <li><a class="button signup" href="<?= base_url('home/signUp');?>">SignUp</a></li>
             </ul>
         </div>
