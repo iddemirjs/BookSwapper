@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Validation\UserRules;
 use CodeIgniter\Validation\CreditCardRules;
 use CodeIgniter\Validation\FileRules;
 use CodeIgniter\Validation\FormatRules;
@@ -24,6 +25,7 @@ class Validation
         FormatRules::class,
         FileRules::class,
         CreditCardRules::class,
+        UserRules::class
     ];
 
     /**
@@ -64,6 +66,16 @@ class Validation
         'usr_surname' => [
             'label' => 'user surname',
             'rules' => 'required|min_length[2]|max_length[50]'
+        ]
+    ];
+    public $validUserLogin = [
+        'usr_username' => [
+            'label' => 'Username',
+            'rules' => 'required|min_length[2]|max_length[30]'
+        ],
+        'usr_password' => [
+            'label' => 'Password',
+            'rules' => 'required|min_length[6]|max_length[30]|validateUser[email,password]'
         ]
     ];
 }
