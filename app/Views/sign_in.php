@@ -5,13 +5,7 @@
             <div class="form-group" style="justify-content: center; display: flex; font-size: xxx-large">
                 <label><b>LOGIN</b></label>
             </div>
-
-
-
-
             <div class="form-group col sm-4">
-                <label for="uname"><b>Username</b></label>
-                <label for="uname"><b>Username</b></label>
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="uname" required style="width: fit-content">
             </div>
