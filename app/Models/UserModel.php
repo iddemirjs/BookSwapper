@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Entities\User;
 use CodeIgniter\Model;
 
 class UserModel extends Model
@@ -17,8 +18,38 @@ class UserModel extends Model
         'usr_updated_at',
         'usr_img_url',
     ];
-    protected $returnType    = \App\Entities\User::class;
+
+    protected $validationRules = [
+        'usr_username' => 'required|is_unique[tbl_user.usr_username]',
+        'usr_mail' => 'required|valid_email|is_unique[tbl_user.usr_mail]',
+        'usr_password' => 'required|min_length[6]|max_length[30]',
+        'usr_name' =>'required|min_length[6]|max_length[50]',
+        'usr_surname' => 'required|min_length[6]|max_length[50]'
+    ];
+    protected $skipValidation= false;
+    protected $allowCallbacks = true;
+    protected $returnType    = User::class;
     protected $useTimestamps = true;
     protected $createdField = 'usr_created_at';
     protected $updatedField = 'usr_updated_at';
+    protected $beforeInsert = ['beforeInsert'];
+    protected $beforeUpdate = ['beforeUpdate'];
+
+
+    protected function beforeInsert( array $data )
+    {
+        return $this->_hashPassword( $data );
+    }
+
+    protected function beforeUpdate( array $data )
+    {
+        return $this->_hashPassword( $data );
+    }
+
+    protected function _hashPassword( array $data )
+    {
+        if( isset($data['data']['usr_password']))
+            $data['data']['usr_password'] = password_hash( $data['data']['usr_password'] , PASSWORD_DEFAULT);
+        return $data;
+    }
 }

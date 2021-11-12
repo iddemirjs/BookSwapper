@@ -16,42 +16,18 @@ class User extends BaseController {
     public function create()
     {
         $validation =  \Config\Services::validation();
-        $rules = [
-            'usr_username' => [
-                'label' => 'Username',
-                'rules' => 'required'
-            ],
-            'usr_mail' => [
-                'label' => 'user mail',
-                'rules' => 'required|valid_email'],
-            'usr_password' => [
-                'label' => 'Password',
-                'rules' => 'required|min_length[6]|max_length[30]'
-            ],
-            'usr_passwordAgain' => [
-                'label' => 'Password Again',
-                'rules' => 'required|min_length[6]|max_length[30]|matches[usr_password]'
-            ],
-            'usr_name' => [
-                'label' => 'name user',
-                'rules' => 'required|min_length[1]|max_length[50]'
-            ],
-            'usr_surname' => [
-                'label' => 'user surname',
-                'rules' => 'required|min_length[1]|max_length[50]'
-            ]
-        ];
-        $validation->setRules($rules);
 
-        if ($validation->withRequest($this->request)->run()) {
+        if ($validation->run($this->request->getPost(),'validUserNew')) {
            $data = $this->request->getPost();
            $user = new UserEntity();
            $user->fill($data);
            $userModel = new UserModel();
            $userModel->save($user);
+           return view('sign_in');
         }else {
             var_dump($validation->getErrors());
+            return view('sign_up');
         }
-        return view('sign_in');
+
     }
 }
