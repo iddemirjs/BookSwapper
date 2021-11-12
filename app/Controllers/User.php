@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Entities\User as UserEntity;
 use App\Models\UserModel;
-use CodeIgniter\HTTP\Request;
 
 class User extends BaseController {
 
@@ -27,6 +26,33 @@ class User extends BaseController {
         }else {
             var_dump($validation->getErrors());
             return view('sign_up');
+        }
+
+    }
+
+    public function login()
+    {
+        $validation =  \Config\Services::validation();
+
+        if ($validation->run($this->request->getPost(),'validUserLogin')) {
+            $userModel = new UserModel();
+            $user = $userModel->where('usr_username',$this->request->getVar('usr_username'))->first();
+            if ($user){
+                session()->set('user',[
+                    'usr_username' => $user->usr_username,
+                    'usr_id' => $user->usr_id,
+                    'usr_name' => $user->usr_name,
+                    'usr_surname' => $user->usr_username,
+                    'usr_mail' => $user->usr_mail,
+                    'usr_loggedIn' => true,
+                ]);
+                return redirect()->to(base_url('dashboard'));
+            }
+
+        }else {
+            echo 'else';
+            var_dump($validation->getErrors());
+
         }
 
     }
