@@ -6,7 +6,7 @@
 
             <div class="form-group sm-6" style="padding-left: 5px">
                 <label for="usr_username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Name" name="usr_username" required>
+                <input type="text" placeholder="Enter Username" name="usr_username" required>
             </div>
 
             <div class="form-group sm-6" style="padding-left: 5px">
@@ -16,12 +16,12 @@
 
             <div class="form-group sm-6" style="padding-left: 5px">
                 <label for="usr_name"><b>Name</b></label>
-                <input type="text" placeholder="Enter Surname" name="usr_name" required>
+                <input type="text" placeholder="Enter Name" name="usr_name" required>
             </div>
 
             <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="usr_surname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="usr_surname" required>
+                <label for="usr_surname"><b>Surname</b></label>
+                <input type="text" placeholder="Enter Surname" name="usr_surname" required>
             </div>
 
             <div class="form-group sm-6" style="padding-left: 5px">
