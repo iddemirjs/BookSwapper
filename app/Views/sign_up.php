@@ -3,7 +3,6 @@
 <div class="container" style="display:flex;height: min-content">
     <form action="../user/create" method="POST" class="row" style="display:flex;padding:10px 20px;flex: 1;">
     <div class="row" style="display:flex;padding:10px 20px;flex: 1;">
-
             <div class="form-group sm-6" style="padding-left: 5px">
                 <label for="usr_username"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="usr_username" required>
@@ -33,7 +32,7 @@
                 <label for="usr_passwordAgain"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password Again" name="usr_passwordAgain" required>
             </div>
-
+      
             <div class="sm-6" style="display: flex;align-items: end;flex-direction: row-reverse;">
                 <button class="btn-outline-primary" type="submit">SignUp</button>
             </div>
