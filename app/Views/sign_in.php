@@ -30,7 +30,7 @@
             <div style="display:flex;justify-content: center">
                 <button class="btn-outline-primary" type="submit">Login</button>
             </div>
-        </form>>
+        </form>
     </div>
 </div>
 
