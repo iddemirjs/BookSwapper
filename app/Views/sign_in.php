@@ -7,9 +7,7 @@
             <div class="form-group" style="justify-content: center; display: flex; font-size: xxx-large">
                 <label><b>LOGIN</b></label>
             </div>
-            <div class="form-group row flex-spaces">
-                <div class="alert alert-danger">Your mother has been died because of colera</div>
-            </div>
+            <div class="alert alert-danger">Your mother has been died because of colera</div>
             <div class="form-group">
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="uname" style="width: fit-content" required="">
