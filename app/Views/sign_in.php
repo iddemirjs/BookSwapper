@@ -1,11 +1,13 @@
 <?= view('sections/header') ?>
 
-<div class = "container" style="display:flex;width: min-content; margin-bottom: 100px; margin-top: 100px; border: 2px solid black;">
-    <div class="row align-items-center" style="display:table-cell; margin-top: 0px; padding: 10px">
-
+<div class = "container" style="display:flex;width: min-content; margin-bottom: 100px; margin-top: 100px;">
+    <div class="row align-items-center" style="display:table-cell; margin-top: 0px; padding: 0px">
         <div class = "form-group">
             <div class="form-group" style="justify-content: center; display: flex; font-size: xxx-large">
                 <label><b>LOGIN</b></label>
+            </div>
+            <div class="row flex-spaces">
+                <div class="alert alert-danger">Alert-danger</div>
             </div>
             <div class="form-group col sm-4">
                 <label for="uname"><b>Username</b></label>
