@@ -12,7 +12,7 @@ class UserModel extends Model
     protected $allowedFields= [
         'usr_name',
         'usr_surname',
-        'usr_mail', // Represents a username
+        'usr_mail',
         'usr_username', // Represents a username
         'usr_password',
         'usr_updated_at',
