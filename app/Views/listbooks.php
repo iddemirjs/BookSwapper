@@ -30,48 +30,75 @@
 </div>
 <div class="container" id="booklistcontainer">
     <div class="booklist">
-        <a id="book" class="btn" data-toggle="modal" data-target="#1984" style="height: max-content">
+        <label id="book" class="paper-btn margin" for="modal-1">
             <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
                  style="box-sizing: border-box">
             <p class="book-title">1984</p>
             <span class="book-author">Orwell, George</span>
             <span class="book-pub-date">June 8, 1949</span>
-        </a>
-        <a id="book" class="btn" data-toggle="modal" data-target="#1984" style="height: max-content">
+        </label>
+
+        <label id="book" class="paper-btn margin" for="modal-1">
             <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
                  style="box-sizing: border-box">
             <p class="book-title">1984</p>
             <span class="book-author">Orwell, George</span>
             <span class="book-pub-date">June 8, 1949</span>
-        </a>
-        <a id="book" class="btn" data-toggle="modal" data-target="#1984" style="height: max-content">
+        </label>
+
+        <label id="book" class="paper-btn margin" for="modal-1">
             <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
                  style="box-sizing: border-box">
             <p class="book-title">1984</p>
             <span class="book-author">Orwell, George</span>
             <span class="book-pub-date">June 8, 1949</span>
-        </a>
-        <a id="book" class="btn" data-toggle="modal" data-target="#1984" style="height: max-content">
+        </label>
+
+        <label id="book" class="paper-btn margin" for="modal-1">
             <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
                  style="box-sizing: border-box">
             <p class="book-title">1984</p>
             <span class="book-author">Orwell, George</span>
             <span class="book-pub-date">June 8, 1949</span>
-        </a>
-        <a id="book" class="btn" data-toggle="modal" data-target="#1984" style="height: max-content">
+        </label>
+
+        <label id="book" class="paper-btn margin" for="modal-1">
             <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
                  style="box-sizing: border-box">
             <p class="book-title">1984</p>
             <span class="book-author">Orwell, George</span>
             <span class="book-pub-date">June 8, 1949</span>
-        </a>
-        <a id="book" class="btn" data-toggle="modal" data-target="#1984" style="height: max-content">
+        </label>
+
+        <label id="book" class="paper-btn margin" for="modal-1">
             <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
                  style="box-sizing: border-box">
             <p class="book-title">1984</p>
             <span class="book-author">Orwell, George</span>
             <span class="book-pub-date">June 8, 1949</span>
-        </a>
+        </label>
+
+        <label id="book" class="paper-btn margin" for="modal-1">
+            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
+                 style="box-sizing: border-box">
+            <p class="book-title">1984</p>
+            <span class="book-author">Orwell, George</span>
+            <span class="book-pub-date">June 8, 1949</span>
+        </label>
+
+        <input class="modal-state" id="modal-1" type="checkbox">
+        <div class="modal">
+            <label class="modal-bg" for="modal-1"></label>
+            <div class="modal-body">
+                <label class="btn-close" for="modal-1">X</label>
+                <h4 class="modal-title">1984</h4>
+                <!-- Buraya kitabın küçük bir resmi eklenebilir. -->
+                <h5 id="author-name" class="modal-subtitle">Orwell, George</h5>
+                <p class="modal-text">Lorem Ipsum Dolor Sit Amet</p>
+                <label class="paper-btn" for="modal-1">Nice!</label>
+            </div>
+        </div>
+
 
     </div>
 </div>
