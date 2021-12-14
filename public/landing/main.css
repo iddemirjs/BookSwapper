@@ -2290,3 +2290,41 @@ p {
 }
 
 /*End Profile Coding*/
+
+/*Start BookList Coding*/
+paper-dropdown-menu, paper-listbox {
+    width: 250px;
+}
+paper-dropdown-menu {
+    height: 200px;
+    margin: auto;
+    display: block;
+}
+.sort-options{
+    font-size:35px;
+    color: #031003;
+}
+#sort-author{
+    width: max-content;
+    margin: 10px;
+}
+#sort-genre{
+    width: max-content;
+    margin: 10px;
+}
+#booklistcontainer{
+    width: 100%;
+    display: block;
+    position: relative;
+    max-width:1200px;
+    margin:0 auto;
+    padding:20px;
+}
+.booklist{
+    height: max-content;
+    width: 1080px;
+    display: inline;
+
+}
+
+/*End BookList Coding*/
