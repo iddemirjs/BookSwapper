@@ -12,11 +12,11 @@
                 </div>
                 <div class="form-group">
                     <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="uname" style="width: fit-content" required="">
+                    <input type="text" placeholder="Enter Username" name="usr_username" style="width: fit-content" required="">
                 </div>
                 <div class="form-group">
                     <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" style="width: fit-content" required="">
+                    <input type="password" placeholder="Enter Password" name="usr_password" style="width: fit-content" required="">
 
                 </div>
             </div>
