@@ -103,7 +103,7 @@
                             <p class="modal-text">Lorem Ipsum Dolor Sit Amet </p>
                         </div>
                     </div>
-                    <button onclick="javascript:window.location.href='Book.php';">Go to listing details</button>
+                    <button>Go to listing details</button>
                 </div>
             </div>
         </form>

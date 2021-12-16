@@ -12,12 +12,12 @@
                     <div class="alert alert-danger">Your mother has been died because of colera</div>
                 </div>
                 <div class="form-group">
-                    <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="uname" style="width: fit-content" required="">
+                    <label for="usr_username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="usr_username" style="width: fit-content" required="">
                 </div>
                 <div class="form-group">
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" style="width: fit-content" required="">
+                    <label for="usr_password"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="usr_password" style="width: fit-content" required="">
 
                 </div>
             </div>

@@ -8,4 +8,8 @@ class Book extends BaseController
     {
         return view('listbooks');
     }
+    public function viewDetails()
+    {
+        return view ('bookdetails');
+    }
 }
