@@ -9,8 +9,8 @@ class User extends BaseController {
 
     public function index()
     {
-        //return view('profile');
-        return view('listbooks');
+        return view('profile');
+        //return view('listbooks');
     }
 
     public function create()
