@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\Auth;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -16,9 +17,10 @@ class Filters extends BaseConfig
      * @var array
      */
     public $aliases = [
-        'csrf'     => CSRF::class,
-        'toolbar'  => DebugToolbar::class,
+        'csrf' => CSRF::class,
+        'toolbar' => DebugToolbar::class,
         'honeypot' => Honeypot::class,
+        'auth' => Auth::class
     ];
 
     /**
@@ -31,6 +33,7 @@ class Filters extends BaseConfig
         'before' => [
             // 'honeypot',
             // 'csrf',
+            'auth' => ['except' => ['home/*', '/', 'home', 'user/*', 'user']]
         ],
         'after' => [
             'toolbar',
