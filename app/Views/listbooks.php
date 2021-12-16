@@ -91,7 +91,9 @@
             <label class="modal-bg" for="modal-1"></label>
             <div class="modal-body">
                 <label class="btn-close" for="modal-1">X</label>
-                <h4 class="modal-title">1984</h4>
+                <h3 class="modal-title">1984</h3>
+                <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
+                     style="box-sizing: border-box">
                 <!-- Buraya kitabın küçük bir resmi eklenebilir. -->
                 <h5 id="author-name" class="modal-subtitle">Orwell, George</h5>
                 <p class="modal-text">Lorem Ipsum Dolor Sit Amet</p>
