@@ -234,16 +234,16 @@
                 </li>
 
                 <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="/dashboard/add_record">
                         <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
-                        <span class="menu-text">All Books</span>
+                        <span class="menu-text">Add Record</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="../dashboard/category">
+                    <a href="/dashboard/records">
                         <i class="menu-icon zmdi zmdi-inbox zmdi-hc-lg"></i>
-                        <span class="menu-text">Categories</span>
+                        <span class="menu-text">Observe Records</span>
                     </a>
                 </li>
 
