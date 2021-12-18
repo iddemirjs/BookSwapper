@@ -9,7 +9,7 @@
                     <label><b>LOGIN</b></label>
                 </div>
                 <div class="form-group row flex-spaces">
-                    <div class="alert alert-danger">Your mother has been died because of colera</div>
+                    <div class="alert alert-danger" id="sign_in_error">Sign in Error!</div>
                 </div>
                 <div class="form-group">
                     <label for="usr_username"><b>Username</b></label>
