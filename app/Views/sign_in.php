@@ -2,21 +2,22 @@
 
 <div class="container" style="display:flex;width: min-content; margin-bottom: 0px; margin-top: 0px;">
     <div style="display:table-row; margin-top: 20px; padding: 100px">
+
         <form action="<?= base_url('user/login'); ?>" method="POST">
             <div class="form-group">
                 <div class="form-group" style="justify-content: center; display: flex; font-size: xxx-large">
                     <label><b>LOGIN</b></label>
                 </div>
                 <div class="form-group row flex-spaces">
-                    <div class="alert alert-danger">Your mother has been died because of colera</div>
+                    <div class="alert alert-danger" id="sign_in_error">Sign in Error!</div>
                 </div>
                 <div class="form-group">
-                    <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="uname" style="width: fit-content" required="">
+                    <label for="usr_username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="usr_username" style="width: fit-content" required="">
                 </div>
                 <div class="form-group">
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" style="width: fit-content" required="">
+                    <label for="usr_password"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="usr_password" style="width: fit-content" required="">
 
                 </div>
             </div>
@@ -30,7 +31,7 @@
             <div style="display:flex;justify-content: center">
                 <button class="btn-outline-primary" type="submit">Login</button>
             </div>
-        </form>>
+        </form>
     </div>
 </div>
 

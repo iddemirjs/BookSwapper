@@ -5,12 +5,18 @@ namespace App\Controllers;
 use App\Entities\User as UserEntity;
 use App\Models\UserModel;
 
+function alert_function(string $message)
+{
+    // Display the alert box
+    echo "<script>alert('$message');</script>";
+}
+
 class User extends BaseController {
 
     public function index()
     {
-        //return view('profile');
-        return view('listbook');
+        return view('profile');
+        //return view('listbooks');
     }
 
     public function create()
@@ -26,6 +32,8 @@ class User extends BaseController {
            return view('sign_in');
         }else {
             var_dump($validation->getErrors());
+            //$debug_export = $this->validator->getError();
+            alert_function("Error Message");
             return view('sign_up');
         }
 
@@ -49,12 +57,14 @@ class User extends BaseController {
                 ]);
                 return redirect()->to(base_url('dashboard'));
             }
-
-        }else {
-            echo 'else';
-            var_dump($validation->getErrors());
-
         }
-
+        else {
+            //var_dump($validation->getErrors());
+            alert_function("Error Message");
+            return view('sign_in');
+            //return redirect()->to(base_url('sign_in'));
+        }
     }
+
+
 }
