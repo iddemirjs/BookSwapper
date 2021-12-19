@@ -56,6 +56,7 @@
                             <hr class="widget-separator">
                             <div class="widget-body">
                                 <form>
+                                    <input type="hidden" name="auth_id" value="<?=(isset($author)?$author->auth_id:'')?>">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Author Name</label>
                                         <input type="text" class="form-control" id="cat_name" placeholder="Author Name">

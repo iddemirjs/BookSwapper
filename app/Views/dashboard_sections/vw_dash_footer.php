@@ -278,8 +278,10 @@
 <script src="../libs/bower/moment/moment.js"></script>
 <script src="../libs/bower/fullcalendar/dist/fullcalendar.min.js"></script>
 <script src="../assets/js/fullcalendar.js"></script>
-<?php foreach ($scripts as $file_name): ?>
-<script src="/scripts/<?= $file_name; ?>"></script>
-<?php endforeach ?>
+<?php if (isset($scripts)): ?>
+    <?php foreach ($scripts as $file_name): ?>
+        <script src="/scripts/<?= $file_name; ?>"></script>
+    <?php endforeach ?>
+<?php endif ?>
 </body>
 </html>
