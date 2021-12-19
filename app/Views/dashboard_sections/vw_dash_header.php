@@ -5,21 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Admin, Dashboard, Bootstrap" />
-    <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
+    <link rel="shortcut icon" sizes="196x196" href="/assets/images/logo.png">
     <title>Infinity - Bootstrap Admin Template</title>
 
-    <link rel="stylesheet" href="../libs/bower/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
-    <!-- build:css ../assets/css/app.min.css -->
-    <link rel="stylesheet" href="../libs/bower/animate.css/animate.min.css">
-    <link rel="stylesheet" href="../libs/bower/fullcalendar/dist/fullcalendar.min.css">
-    <link rel="stylesheet" href="../libs/bower/perfect-scrollbar/css/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../assets/css/core.css">
-    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="/libs/bower/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
+    <!-- build:css /assets/css/app.min.css -->
+    <link rel="stylesheet" href="/libs/bower/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/libs/bower/fullcalendar/dist/fullcalendar.min.css">
+    <link rel="stylesheet" href="/libs/bower/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/core.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
     <!-- endbuild -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
-    <script src="../libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
+    <script src="/libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
     <script>
         Breakpoints();
     </script>
@@ -48,7 +48,7 @@
             <span class="zmdi zmdi-hc-lg zmdi-search"></span>
         </button>
 
-        <a href="../index.html" class="navbar-brand">
+        <a href="/index.html" class="navbar-brand">
             <span class="brand-icon"><i class="fa fa-gg"></i></span>
             <span class="brand-name">Infinity</span>
         </a>
@@ -81,7 +81,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <div class="avatar avatar-xs avatar-circle">
-                                        <img src="../assets/images/221.jpg" alt="">
+                                        <img src="/assets/images/221.jpg" alt="">
                                         <i class="status status-online"></i>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <div class="avatar avatar-xs avatar-circle">
-                                        <img src="../assets/images/205.jpg" alt="">
+                                        <img src="/assets/images/205.jpg" alt="">
                                         <i class="status status-offline"></i>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <div class="avatar avatar-xs avatar-circle">
-                                        <img src="../assets/images/207.jpg" alt="">
+                                        <img src="/assets/images/207.jpg" alt="">
                                         <i class="status status-away"></i>
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <div class="avatar avatar-xs avatar-circle">
-                                        <img src="../assets/images/211.jpg" alt="">
+                                        <img src="/assets/images/211.jpg" alt="">
                                         <i class="status status-away"></i>
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@
         <div class="media">
             <div class="media-left">
                 <div class="avatar avatar-md avatar-circle">
-                    <a href="javascript:void(0)"><img class="img-responsive" src="../assets/images/221.jpg" alt="avatar"/></a>
+                    <a href="javascript:void(0)"><img class="img-responsive" src="/assets/images/221.jpg" alt="avatar"/></a>
                 </div><!-- .avatar -->
             </div>
             <div class="media-body">
