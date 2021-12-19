@@ -46,7 +46,14 @@ class Dashboard extends BaseController
     }
     public function update_author($id)
     {
-        return $this->response->setJSON(['result'=>$id]);
+        $categories = model('CategoryModel');
+        $author = new AuthorModel();
+        $edit_auth = $author->find($id);
+        $all_cat = $categories->findAll();
+        return view('dashboard_sections/contents/vw_dash_add',[
+            'categories' => $all_cat,
+            'author'=>$edit_auth
+        ]);
     }
 }
 

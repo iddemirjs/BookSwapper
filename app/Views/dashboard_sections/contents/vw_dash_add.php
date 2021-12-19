@@ -51,7 +51,7 @@
                     <div class="col-md-12">
                         <div class="widget">
                             <header class="widget-header">
-                                <h4 class="widget-title">Add Author</h4>
+                                <h4 class="widget-title">Add Author <?=(isset($author)?'- Now Update Form':'')?></h4>
                             </header><!-- .widget-header -->
                             <hr class="widget-separator">
                             <div class="widget-body">
@@ -59,19 +59,17 @@
                                     <input type="hidden" name="auth_id" value="<?=(isset($author)?$author->auth_id:'')?>">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Author Name</label>
-                                        <input type="text" class="form-control" id="cat_name" placeholder="Author Name">
+                                        <input type="text" class="form-control" id="auth_name" value="<?=(isset($author)?$author->auth_name:'')?>" placeholder="Author Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Author Surname</label>
-                                        <input type="text" class="form-control" id="cat_name" placeholder="Author Surname">
+                                        <input type="text" class="form-control" id="cat_surname" value="<?=(isset($author)?$author->auth_surname:'')?>" placeholder="Author Surname">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Author Description</label>
-                                        <textarea class="form-control" style="min-height: 69px;">
-
-                                    </textarea>
+                                        <textarea class="form-control" style="min-height: 69px;"><?=(isset($author)?trim($author->auth_description):'')?></textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-md">Save</button>
+                                    <button type="submit" class="btn btn-primary btn-md"><?=(isset($author)?'Update':'Save')?></button>
                                 </form>
                             </div><!-- .widget-body -->
                         </div><!-- .widget -->
