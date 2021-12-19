@@ -2,7 +2,6 @@
 
 <div class="container" style="display:flex;width: min-content; margin-bottom: 0px; margin-top: 0px;">
     <div style="display:table-row; margin-top: 20px; padding: 100px">
-
         <form action="<?= base_url('user/login'); ?>" method="POST">
             <div class="form-group">
                 <div class="form-group" style="justify-content: center; display: flex; font-size: xxx-large">
@@ -18,7 +17,6 @@
                 <div class="form-group">
                     <label for="usr_password"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="usr_password" style="width: fit-content" required="">
-
                 </div>
             </div>
             <div class="form-group" style="display: flex; justify-content: center;">
