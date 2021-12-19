@@ -100,11 +100,12 @@
                                                         <th><?= $author->auth_surname; ?></th>
                                                         <th><?= $author->auth_description; ?></th>
                                                         <th>
-                                                            <button class="btn-primary-outline"><i class="fa fa-edit"
-                                                                                                   aria-hidden="true"></i>
+                                                            <button class="btn-primary-outline edit"
+                                                                    data-url="/dashboard/update_author/<?= $author->auth_id; ?>">
+                                                                <i class="fa fa-edit" aria-hidden="true"></i>
                                                             </button>
                                                             <button class="btn-danger-outline delete"
-                                                                    data-url="/dashboard/delete_category/<?= $author->auth_id; ?>">
+                                                                    data-url="/dashboard/delete_author/<?= $author->auth_id; ?>">
                                                                 <i class="fa fa-trash" aria-hidden="true"></i></button>
                                                         </th>
                                                     </tr>

@@ -37,12 +37,16 @@ class Dashboard extends BaseController
                 'categories' => $all_cat
             ]);
     }
-    public function delete_category($id)
+    public function delete_author($id)
     {
-        $cat = new AuthorModel();
-        $result=$cat->where('auth_id',$id)->delete($id);
+        $auth = new AuthorModel();
+        $result=$auth->where('auth_id',$id)->delete($id);
 
         return $this->response->setJSON(['result'=>$result]);
+    }
+    public function update_author($id)
+    {
+        return $this->response->setJSON(['result'=>$id]);
     }
 }
 
