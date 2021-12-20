@@ -30,61 +30,15 @@
 </div>
 <div class="container" id="booklistcontainer">
     <div class="booklist">
+        <?php foreach ($books as $key =>$book): ?>
         <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
+            <img src= <?=($book->bk_mainImgUrl)?> alt="1984"
                  style="box-sizing: border-box">
-            <p class="book-title">1984</p>
+            <p class="book-title"><?= $book->bk_title; ?></p>
             <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
+            <span class="book-edition-number"><?= $book->bk_editionNumber; ?></span>
         </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
+        <?php endforeach ?>
         <form action="<?= base_url('book/viewDetails'); ?>">
             <input class="modal-state" id="modal-1" type="checkbox">
             <div class="modal">
