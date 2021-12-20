@@ -8,19 +8,18 @@ class BookController extends BaseController
 {
     public function index()
     {
-        $db = db_connect();
-        $books = model('BookModel');
-        $allbooks = $books->findAll();
+
+        $results_per_page = 1;
+        $book_model = model('BookModel');
+        $page_books = $book_model->paginate($results_per_page);
         return view('listbooks', [
-            'books' => $allbooks
+            'books' =>  $page_books,
+            'pager'=>$book_model->pager
         ]);
-        //return view('listbooks');
     }
     public function view_details($bookId)
     {
-        //$db = db_connect();
-        //$book =$db->query("SELECT * FROM tbl_book
-         //                           WHERE tbl_book.bk_id= $bookId")->getResult();
+
         $bookModel = new BookModel();
         $book= $bookModel->find($bookId);
         return view ('bookdetails',

@@ -43,4 +43,18 @@
         <?php endforeach ?>
     </div>
 </div>
+
+<?= $pager->links() ?>
+
+<style>
+    ul li:before{
+        content: '';
+    }
+    ul li{
+        text-indent: 20px;
+        font-size: 45px;
+        display: inline-block;
+    }
+</style>
+
 <?= view('sections/footer'); ?>
