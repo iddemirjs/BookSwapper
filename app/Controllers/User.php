@@ -5,12 +5,6 @@ namespace App\Controllers;
 use App\Entities\User as UserEntity;
 use App\Models\UserModel;
 
-function alert_function(string $message)
-{
-    // Display the alert box
-    echo "<script>alert('$message');</script>";
-}
-
 class User extends BaseController {
 
     public function index()
@@ -30,12 +24,9 @@ class User extends BaseController {
            $userModel->save($user);
            return view('sign_in');
         }else {
-            var_dump($validation->getErrors());
-            //$debug_export = $this->validator->getError();
-            alert_function("Error Message");
+            $this->alert_function($validation->getErrors());
             return view('sign_up');
         }
-
     }
 
     public function login()
@@ -58,12 +49,20 @@ class User extends BaseController {
             }
         }
         else {
-            //var_dump($validation->getErrors());
-            alert_function("Error Message");
+            $this->alert_function($validation->getErrors());
             return view('sign_in');
-            //return redirect()->to(base_url('sign_in'));
         }
     }
 
+    public function alert_function($errors)
+    {
+        $all_errors = '';
+        foreach ($errors as $error){
+            //
+            $all_errors = $all_errors." || ".$error;
+        }
 
+        // Display the alert box
+        echo "<script>alert('$all_errors');</script>";
+    }
 }

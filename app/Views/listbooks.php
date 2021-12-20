@@ -39,28 +39,6 @@
             <span class="book-edition-number"><?= $book->bk_editionNumber; ?></span>
         </label>
         <?php endforeach ?>
-        <form action="<?= base_url('book/viewDetails'); ?>">
-            <input class="modal-state" id="modal-1" type="checkbox">
-            <div class="modal">
-                <div class="modal-body" style="max-width: 100%">
-                    <label class="btn-close" for="modal-1">X</label>
-                    <h3 class="modal-title">Book Information</h3>
-                    <div class="row">
-                        <div class="form-group sm-6" style="width: fit-content">
-                            <!-- Buraya kitabın küçük bir resmi eklenebilir. -->
-                            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                                 style="box-sizing: border-box;max-width: 100%">
-                        </div>
-                        <div class="form-group sm-6" style="width: max-content">
-                            <h3 class="modal-title">1984</h3>
-                            <h5 id="author-name" class="modal-subtitle">Orwell, George</h5>
-                            <p class="modal-text">Lorem Ipsum Dolor Sit Amet </p>
-                        </div>
-                    </div>
-                    <button>Go to listing details</button>
-                </div>
-            </div>
-        </form>
     </div>
 </div>
 <?= view('sections/footer'); ?>
