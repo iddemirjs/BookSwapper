@@ -1,12 +1,12 @@
-<base href="https://raw-dot-custom-elements.appspot.com/PolymerElements/paper-dropdown-menu/v2.0.0/paper-dropdown-menu/">
-
-<script src="../webcomponentsjs/webcomponents-lite.js"></script>
-<link rel="import" href="paper-dropdown-menu.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../paper-listbox/paper-listbox.html">
+<script src="https://raw-dot-custom-elements.appspot.com/PolymerElements/paper-dropdown-menu/v2.0.0/paper-dropdown-menu/../webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import"
+      href="https://raw-dot-custom-elements.appspot.com/PolymerElements/paper-dropdown-menu/v2.0.0/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import"
+      href="https://raw-dot-custom-elements.appspot.com/PolymerElements/paper-dropdown-menu/v2.0.0/paper-dropdown-menu/../paper-item/paper-item.html">
+<link rel="import"
+      href="https://raw-dot-custom-elements.appspot.com/PolymerElements/paper-dropdown-menu/v2.0.0/paper-dropdown-menu/../paper-listbox/paper-listbox.html">
 
 <?= view('sections/header') ?>
-
 <div class="container">
     <h3 class="nav-title">Sort Options</h3>
     <ul class="sort-options" style="display: inline">
@@ -30,83 +30,31 @@
 </div>
 <div class="container" id="booklistcontainer">
     <div class="booklist">
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-
-        <label id="book" class="paper-btn margin" for="modal-1">
-            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                 style="box-sizing: border-box">
-            <p class="book-title">1984</p>
-            <span class="book-author">Orwell, George</span>
-            <span class="book-pub-date">June 8, 1949</span>
-        </label>
-        <form action="<?= base_url('book/viewDetails'); ?>">
-            <input class="modal-state" id="modal-1" type="checkbox">
-            <div class="modal">
-                <div class="modal-body" style="max-width: 100%">
-                    <label class="btn-close" for="modal-1">X</label>
-                    <h3 class="modal-title">Book Information</h3>
-                    <div class="row">
-                        <div class="form-group sm-6" style="width: fit-content">
-                            <!-- Buraya kitabın küçük bir resmi eklenebilir. -->
-                            <img src="https://onehundredonebooks.files.wordpress.com/2011/02/1984-book9.jpg" alt="1984"
-                                 style="box-sizing: border-box;max-width: 100%">
-                        </div>
-                        <div class="form-group sm-6" style="width: max-content">
-                            <h3 class="modal-title">1984</h3>
-                            <h5 id="author-name" class="modal-subtitle">Orwell, George</h5>
-                            <p class="modal-text">Lorem Ipsum Dolor Sit Amet </p>
-                        </div>
-                    </div>
-                    <button>Go to listing details</button>
-                </div>
-            </div>
-        </form>
+        <?php foreach ($books as $key => $book): ?>
+        <a href="/bookcontroller/view_details/<?= $book->bk_id; ?>">
+            <btn class="paper-btn margin"
+                 style="width: max-content;height: max-content">
+                <img src='<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box">
+                <p class="book-title"><?= $book->bk_title; ?></p>
+                <span class="book-author">Orwell, George</span>
+                <span class="book-edition-number"><?= $book->bk_editionNumber; ?></span>
+            </btn>
+        </a>
+        <?php endforeach ?>
     </div>
 </div>
+
+<?= $pager->links() ?>
+
+<style>
+    ul li:before{
+        content: '';
+    }
+    ul li{
+        text-indent: 20px;
+        font-size: 45px;
+        display: inline-block;
+    }
+</style>
+
 <?= view('sections/footer'); ?>
