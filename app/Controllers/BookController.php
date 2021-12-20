@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\BookModel;
 
-class Book extends BaseController
+class BookController extends BaseController
 {
     public function index()
     {
@@ -16,17 +16,16 @@ class Book extends BaseController
         ]);
         //return view('listbooks');
     }
-    public function viewDetails()
+    public function view_details($bookId)
     {
-        return view ('bookdetails');
-    }
-    public function records()
-    {
-        $db = db_connect();
-        $books = model('BookModel');
-        $allbooks = $books->findAll();
-        return view('bookdetails', [
-            'books' => $allbooks
+        //$db = db_connect();
+        //$book =$db->query("SELECT * FROM tbl_book
+         //                           WHERE tbl_book.bk_id= $bookId")->getResult();
+        $bookModel = new BookModel();
+        $book= $bookModel->find($bookId);
+        return view ('bookdetails',
+            [ 'book'=>$book
             ]);
     }
+
 }
