@@ -37,6 +37,13 @@ $routes->post('user/create', 'User::create');
 // Author URLs
 $routes->get('dashboard/delete_author/(:num)', 'Dashboard::delete_author/$1');
 $routes->get('dashboard/update_author/(:num)', 'Dashboard::update_author/$1');
+// Category URLs
+$routes->get('dashboard/delete_category/(:num)', 'Dashboard::delete_category/$1');
+$routes->get('dashboard/update_category/(:num)', 'Dashboard::update_category/$1');
+// Book URLs
+$routes->get('dashboard/delete_book/(:num)', 'Dashboard::delete_book/$1');
+$routes->get('dashboard/update_book/(:num)', 'Dashboard::update_book/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

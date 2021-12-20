@@ -16,9 +16,9 @@ class AuthorModel extends Model
     ];
 
     protected $validationRules = [
-        'auth_name' => 'required|is_unique[tbl_user.usr_username]',
-        'auth_surname' => 'required|valid_email|is_unique[tbl_user.usr_mail]',
-        'auth_description' => 'required|min_length[6]|max_length[30]',
+        'auth_name' => 'required',
+        'auth_surname' => 'required',
+        'auth_description' => 'required',
     ];
 
     protected $skipValidation= false;

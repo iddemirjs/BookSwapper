@@ -12,17 +12,17 @@ class UserModel extends Model
     protected $allowedFields= [
         'usr_name',
         'usr_surname',
-        'usr_mail', // Represents a username
-        'usr_username', // Represents a username
+        'usr_mail',
+        'usr_username',
         'usr_password',
         'usr_updated_at',
         'usr_img_url',
     ];
 
     protected $validationRules = [
-        'usr_username' => 'required|is_unique[tbl_user.usr_username]',
-        'usr_mail' => 'required|valid_email|is_unique[tbl_user.usr_mail]',
-        'usr_password' => 'required|min_length[6]|max_length[30]',
+        'usr_username' => 'required',
+        'usr_mail' => 'required|valid_email|is_unique[tbl_user.usr_mail,usr_mail,{usr_mail}]',
+        'usr_password' => 'required|min_length[2]|max_length[30]',
         'usr_name' =>'required|min_length[2]|max_length[50]',
         'usr_surname' => 'required|min_length[2]|max_length[50]'
     ];
