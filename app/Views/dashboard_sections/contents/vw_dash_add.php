@@ -158,24 +158,32 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Owner</label>
-                                    <select name="cat_parentId" class="form-control">
+                                    <select name="bk_ownerId" class="form-control">
                                         <option>Please select a User</option>
-                                        <?php foreach ($users as $user): ?>
-                                            <option value="<?= $user->usr_id; ?>" <?= (isset($bookEdit) && $bookEdit->bk_ownerId == $user->usr_id) ? 'selected=selected' : ''; ?>>
-                                                <?= $user->usr_id . '-' . $user->usr_username; ?>
-                                            </option>
-                                        <?php endforeach ?>
+                                        <?php if (isset($users)): ?>
+
+                                            <?php foreach ($users as $user): ?>
+                                                <option value="<?= $user->usr_id; ?>" <?= (isset($bookEdit) && $bookEdit->bk_ownerId == $user->usr_id) ? 'selected=selected' : ''; ?>>
+                                                    <?= $user->usr_id . '-' . $user->usr_username; ?>
+                                                </option>
+                                            <?php endforeach ?>
+
+                                        <?php endif ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Author</label>
-                                    <select name="cat_parentId" class="form-control">
+                                    <select name="bk_authorId" class="form-control">
                                         <option>Please select a author</option>
-                                        <?php foreach ($authors as $author): ?>
-                                            <option value="<?= $author->auth_id; ?>" <?= (isset($bookEdit) && $bookEdit->bk_authorId == $author->auth_id) ? 'selected=selected' : ''; ?>>
-                                                <?= $author->auth_name . ' ' . $author->auth_surname; ?>
-                                            </option>
-                                        <?php endforeach ?>
+                                        <?php if (isset($authors)): ?>
+
+                                            <?php foreach ($authors as $author): ?>
+                                                <option value="<?= $author->auth_id; ?>" <?= (isset($bookEdit) && $bookEdit->bk_authorId == $author->auth_id) ? 'selected=selected' : ''; ?>>
+                                                    <?= $author->auth_name . ' ' . $author->auth_surname; ?>
+                                                </option>
+                                            <?php endforeach ?>
+
+                                        <?php endif ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
