@@ -31,13 +31,15 @@
 <div class="container" id="booklistcontainer">
     <div class="booklist">
         <?php foreach ($books as $key => $book): ?>
-            <button class="paper-btn margin"
-                    data-url="/bookcontroller/view_details/<?= $book->bk_id; ?>">
+        <a href="/bookcontroller/view_details/<?= $book->bk_id; ?>">
+            <btn class="paper-btn margin"
+                 style="width: max-content;height: max-content">
                 <img src='<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box">
                 <p class="book-title"><?= $book->bk_title; ?></p>
                 <span class="book-author">Orwell, George</span>
                 <span class="book-edition-number"><?= $book->bk_editionNumber; ?></span>
-            </button>
+            </btn>
+        </a>
         <?php endforeach ?>
     </div>
 </div>
