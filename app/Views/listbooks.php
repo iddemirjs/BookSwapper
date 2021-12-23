@@ -20,8 +20,9 @@
         <paper-dropdown-menu id="sort-category" label="Category" style="height: min-content">
             <paper-listbox slot="dropdown-content" selected="0">
                 <?php foreach ($categories as $key => $category):?>
-                <a href="/bookcontroller/sort_by_category/<?=$category->cat_id;?>"
-                <paper-item><?=$category->cat_name; ?></paper-item>
+                <a href="/bookcontroller/sort_by_category/<?=$category->cat_id;?>">
+                    <paper-item><?=$category->cat_name; ?></paper-item>
+                </a>
                 <?php endforeach ?>
             </paper-listbox>
         </paper-dropdown-menu>
@@ -39,11 +40,9 @@
                 <span class="book-author">Orwell, George</span>
                 <span class="book-edition-number"><?= $book->bk_editionNumber; ?></span>
                 <span class="book-category">
-
                 <?php foreach ($books_categories[$i] as $key => $books_category): ?>
-                    <?= $books_category->cat_name; ?>
+                    <?= $books_category->cat_name; ?>,
                 <?php endforeach ?>
-
                 </span>
                 <?php $i = $i + 1?>
             </btn>
