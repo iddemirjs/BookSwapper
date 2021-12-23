@@ -10,7 +10,7 @@ class UserRules
 
         if(!$user) {
             // Burada mesajı error olarak yazdır.
-            echo 'User not found!';
+            echo "<script>alert('User not found!');</script>";
             return false;
         }
         else {
@@ -19,7 +19,7 @@ class UserRules
             }
             else{
                 // password is invalid
-                echo 'Password is wrong!';
+                echo "<script>alert('Password is wrong!');</script>";
             }
             return password_verify($data['usr_password'], $user->usr_password);
         }
