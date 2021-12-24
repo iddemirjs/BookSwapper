@@ -90,23 +90,30 @@ class BookController extends BaseController
 
 
     }
+
     public function get_user_books($userId)
     {
 
-        $results_per_page = 10;
-        $book_model = model('BookModel');
-        $page_books['books'] = $book_model->paginate($results_per_page);
-        for($i = 0; $i<count($page_books['books']); $i++)
+        $book_model = new BookModel();
+        //Tablo olarak defaultta zaten tbl_bookdaydı o yüzden ekstra from yazmaya gerek yok
+
+        $user_books['books'] = $book_model
+            ->select('bk_id,bk_ownerId,
+                                    bk_title,bk_authorId,bk_description,bk_editionNumber,bk_mainImgUrl')
+            ->from('tbl_user')
+            ->where('bk_ownerId = '. $userId)
+            ->groupBy('bk_id')
+            ->paginate(5);
+        $user_books['book_model']= $book_model;
+        for($i = 0; $i<count($user_books['books']); $i++)
         {
-            $id = $page_books['books'][$i]->bk_id;
-            $page_books['books_categories'][$i] = $this->get_categories($id);
+            $id = $user_books['books'][$i]->bk_id;
+            $user_books['books_categories'][$i] = $this->get_categories($id);
         }
-
-        return view('list_user_books', [
-            'books' =>  $page_books['books'],
-            'pager'=> $book_model->pager,
-            'books_categories' => $page_books['books_categories']
-        ]);
+        return $user_books;
     }
-
+    public function make_an_offer($bookId)
+    {
+        return view('make_offer');
+    }
 }

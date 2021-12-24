@@ -3,9 +3,7 @@
 namespace App\Controllers;
 
 use App\Entities\User as UserEntity;
-use App\Models\BookModel;
 use App\Models\UserModel;
-use CodeIgniter\Model;
 
 class User extends BaseController {
 
@@ -15,32 +13,17 @@ class User extends BaseController {
     }
     public function view_profile($userId)
     {
-        //Bu kitap şeyi aslında kitap kontrolcüsünde olmalı ama viewları nasıl ayarlıyacağıma
-        //kafam basmadı o yüzden şu anlık burada duruyor idris baba akıl ver bize.
 
+        $user_books = (new BookController)->get_user_books($userId);
         $user = Model('UserModel')->find($userId);
-        $book_model = new BookModel();
-        //Tablo olarak defaultta zaten tbl_bookdaydı o yüzden ekstra from yazmaya gerek yok
-
-        $user_books['books'] = $book_model
-                ->select('bk_id,bk_ownerId,
-                                    bk_title,bk_authorId,bk_description,bk_editionNumber,bk_mainImgUrl')
-                ->from('tbl_user')
-                ->where('bk_ownerId = '. $userId)
-                ->groupBy('bk_id')
-                ->paginate(5);
         if(count($user_books['books']) != 0)
         {
-            for($i = 0; $i<count($user_books['books']); $i++)
-            {
-                $id = $user_books['books'][$i]->bk_id;
-                $user_books['books_categories'][$i] = (new BookController)->get_categories($id);
-            }
+
             return view('profile',[
                 'user' => $user,
                 'books' => $user_books['books'],
                 'books_categories'=> $user_books['books_categories'],
-                'pager' => $book_model->pager,
+                'pager' => $user_books['book_model']->pager,
                 'have_books' => true
             ]);
         }

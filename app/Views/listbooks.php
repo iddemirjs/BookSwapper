@@ -54,13 +54,14 @@
 <?= $pager->links() ?>
 
 <style>
-    ul li:before{
+    .pagination li:before{
         content: '';
     }
-    ul li{
+    .pagination li{
         text-indent: 20px;
         font-size: 45px;
         display: inline-block;
+        text-align: center;
     }
 </style>
 
