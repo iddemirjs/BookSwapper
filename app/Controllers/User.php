@@ -9,8 +9,58 @@ class User extends BaseController {
 
     public function index()
     {
-        //return view('profile');
-        return view('listbooks');
+        return view('profile');
+    }
+    public function view_profile($userId)
+    {
+
+        $user_books = (new BookController)->get_user_books($userId);
+        $user = Model('UserModel')->find($userId);
+
+        if(count($user_books['books']) != 0)
+        {
+
+            return view('profile',[
+                'user' => $user,
+                'books' => $user_books['books'],
+                'books_categories'=> $user_books['books_categories'],
+                'have_books' => true
+            ]);
+        }
+        else
+        {
+            return view('profile',[
+                'user' => $user,
+                'have_books' => false
+            ]);
+        }
+    }
+    public function view_user_books($userId)
+    {
+        $user_books = (new BookController)->get_user_books($userId);
+        $bcount = count($user_books['books']);
+        $author_model = Model('AuthorModel');
+        for ($i = 0;$i<$bcount;$i++)
+        {
+            $user_books['books_authors'][$i] = $author_model->find($user_books['books'][$i]->bk_authorId);
+        }
+
+        if(count($user_books['books']) != 0)
+        {
+
+            return view('list_user_books',[
+                'books' => $user_books['books'],
+                'books_categories'=> $user_books['books_categories'],
+                'have_books' => true,
+                'books_authors' => $user_books['books_authors']
+            ]);
+        }
+        else
+        {
+            return view('list_user_books',[
+                'have_books' => false
+            ]);
+        }
     }
 
     public function create()
@@ -25,10 +75,9 @@ class User extends BaseController {
            $userModel->save($user);
            return view('sign_in');
         }else {
-            var_dump($validation->getErrors());
+            $this->alert_function($validation->getErrors());
             return view('sign_up');
         }
-
     }
 
     public function login()
@@ -49,12 +98,65 @@ class User extends BaseController {
                 ]);
                 return redirect()->to(base_url('dashboard'));
             }
+        }
+        else {
+            $this->alert_function($validation->getErrors());
+            return view('sign_in');
+        }
+    }
 
-        }else {
-            echo 'else';
-            var_dump($validation->getErrors());
-
+    public function alert_function($errors)
+    {
+        $all_errors = '';
+        foreach ($errors as $error){
+            //
+            $all_errors = $all_errors." || ".$error;
         }
 
+        // Display the alert box
+        echo "<script>alert('$all_errors');</script>";
+    }
+
+    public function upload()
+    {
+        helper(['form', 'url']);
+
+        $database = db_connect();
+        // Tablo ilişkisi düzeltilecek
+        $builder = $database->table('users');
+
+        $validateImage = $this->validate([
+            'file' => [
+                'uploaded[file]',
+                'mime_in[file, image/png, image/jpg,image/jpeg, image/gif]',
+                'max_size[file, 4096]',
+            ],
+        ]);
+
+        $response = [
+            'success' => false,
+            'data' => '',
+            'msg' => "Image could not upload"
+        ];
+
+        if ($validateImage) {
+            $imageFile = $this->request->getFile('file');
+            $imageFile->move(WRITEPATH . 'uploads');
+
+            $data = [
+                'img_name' => $imageFile->getClientName(),
+                'file'  => $imageFile->getClientMimeType()
+            ];
+
+            $save = $builder->insert($data);
+
+            $response = [
+                'success' => true,
+                'data' => $save,
+                'msg' => "Image successfully uploaded"
+            ];
+        }
+
+        return $this->response->setJSON($response);
     }
 }

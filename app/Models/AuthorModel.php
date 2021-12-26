@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Entities\User;
+use App\Entities\Author;
 use CodeIgniter\Model;
 
 class AuthorModel extends Model
@@ -18,11 +18,14 @@ class AuthorModel extends Model
     protected $validationRules = [
         'auth_name' => 'required',
         'auth_surname' => 'required',
+<<<<<<< HEAD
         'auth_description' => 'required',
+=======
+>>>>>>> main
     ];
 
     protected $skipValidation= false;
     protected $allowCallbacks = true;
-    protected $returnType    = AuthorModel::class;
+    protected $returnType    = Author::class;
     protected $useSoftDeletes        = false;
 }

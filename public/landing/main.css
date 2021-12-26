@@ -2308,7 +2308,7 @@ paper-dropdown-menu {
     width: max-content;
     margin: 10px;
 }
-#sort-genre{
+#sort-category{
     width: max-content;
     margin: 10px;
 }
@@ -2329,6 +2329,7 @@ paper-dropdown-menu {
 
 #author-name{
     color: #0d0d0d;
+    width: max-content;
 }
 
 
