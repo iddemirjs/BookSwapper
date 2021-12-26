@@ -1,10 +1,13 @@
 <?= view('sections/header') ?>
 
 <div class="offer-container">
-    <div class="form-group">
-        <label for="offer_desc">Offer Description</label>
-        <textarea id="offer_desc" placeholder="Enter Your Offer Description Here!"></textarea>
-    </div>
+    <form action="<?=base_url('BookController/send_offer/'.$bookId);?>" method="POST">
+        <div class="form-group">
+            <label for="offer_desc">Offer Description</label>
+            <textarea id="offer_desc" style="border-color: #5e72e4" placeholder="Enter Your Offer Description Here!"></textarea>
+        </div>
+        <button type="submit">Send Offer</button>
+    </form>
 </div>
 
 <?= view('sections/footer'); ?>

@@ -16,6 +16,7 @@ class User extends BaseController {
 
         $user_books = (new BookController)->get_user_books($userId);
         $user = Model('UserModel')->find($userId);
+
         if(count($user_books['books']) != 0)
         {
 
@@ -23,7 +24,6 @@ class User extends BaseController {
                 'user' => $user,
                 'books' => $user_books['books'],
                 'books_categories'=> $user_books['books_categories'],
-                'pager' => $user_books['book_model']->pager,
                 'have_books' => true
             ]);
         }
@@ -34,8 +34,33 @@ class User extends BaseController {
                 'have_books' => false
             ]);
         }
+    }
+    public function view_user_books($userId)
+    {
+        $user_books = (new BookController)->get_user_books($userId);
+        $bcount = count($user_books['books']);
+        $author_model = Model('AuthorModel');
+        for ($i = 0;$i<$bcount;$i++)
+        {
+            $user_books['books_authors'][$i] = $author_model->find($user_books['books'][$i]->bk_authorId);
+        }
 
+        if(count($user_books['books']) != 0)
+        {
 
+            return view('list_user_books',[
+                'books' => $user_books['books'],
+                'books_categories'=> $user_books['books_categories'],
+                'have_books' => true,
+                'books_authors' => $user_books['books_authors']
+            ]);
+        }
+        else
+        {
+            return view('list_user_books',[
+                'have_books' => false
+            ]);
+        }
     }
 
     public function create()

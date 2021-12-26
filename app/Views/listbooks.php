@@ -29,25 +29,24 @@
     </ul>
 </div>
 <div class="container" id="booklistcontainer">
-    <div class="booklist">
-        <?php $i = 0 ?>
-        <?php foreach ($books as $key => $book): ?>
-        <a href="/bookcontroller/view_details/<?= $book->bk_id; ?>">
-            <btn class="paper-btn margin"
-                 style="width: max-content;height: max-content">
-                <img src='<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box">
-                <p class="book-title"><?= $book->bk_title; ?></p>
-                <span class="book-author">Orwell, George</span>
-                <span class="book-edition-number"><?= $book->bk_editionNumber; ?></span>
-                <span class="book-category">
-                <?php foreach ($books_categories[$i] as $key => $books_category): ?>
-                    <?= $books_category->cat_name; ?>,
+    <div class="booklist" >
+        <?php $bcount = count($books)?>
+        <?php for($b_index= 0;$b_index<$bcount;$b_index++): $book = $books[$b_index]?>
+            <btn class="paper-btn margin" style="width: 290px" href="/bookcontroller/view_details/<?= $book->bk_id; ?>">
+            <img src='<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box;width:255px;height:320px">
+            <ul class="book-title"><?= $book->bk_title; ?></ul>
+            <ul class="book-author">Author:
+                <?=$books_authors[$b_index]->auth_name;?> <?=$books_authors[$b_index]->auth_surname;?></ul>
+            <ul class="book-edition-number">Edition Number:<?= $book->bk_editionNumber; ?></ul>
+            <ul class="book-category">Categories:
+                <?php foreach ($books_categories[$b_index] as $key1 => $books_category): ?>
+                    <?= $books_category->cat_name; ?>
+                    <?php if($key1 != count($books_categories[$b_index]) - 1):?>,
+                    <?php endif;?>
                 <?php endforeach ?>
-                </span>
-                <?php $i = $i + 1?>
+            </ul>
             </btn>
-        </a>
-        <?php endforeach ?>
+        <?php endfor ?>
     </div>
 </div>
 

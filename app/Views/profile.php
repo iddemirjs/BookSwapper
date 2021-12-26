@@ -60,8 +60,7 @@
                             </div>
                             <div class="text-center">
                                 <h3>
-                                    <?= $user->usr_name ?> <?= $user->usr_surname ?><span
-                                            class="font-weight-light">, 27</span>
+                                    <?= $user->usr_name ?> <?= $user->usr_surname ?>
                                 </h3>
                             </div>
                         </div>
@@ -149,6 +148,8 @@
                                     <?php endforeach ?>
 
                                     <?= $pager->links() ?>
+                                <?php else:?>
+                                <h3>No Books Found</h3>
                                 <?php endif;?>
                             </form>
                         </div>

@@ -3,14 +3,16 @@
 namespace App\Controllers;
 
 use App\Models\BookModel;
+use CodeIgniter\Model;
+use phpDocumentor\Reflection\Types\ClassString;
 
 class BookController extends BaseController
 {
     public function index()
     {
 
-
-        $authors = model('AuthorModel')->findAll();
+        $author_model = Model('AuthorModel');
+        $authors = $author_model->findAll();
         $categories = model('CategoryModel')->findAll();
         $results_per_page = 10;
         $book_model = model('BookModel');
@@ -19,6 +21,7 @@ class BookController extends BaseController
         {
             $id = $page_books['books'][$i]->bk_id;
             $page_books['books_categories'][$i] = $this->get_categories($id);
+            $page_books['books_authors'][$i] = $author_model->find($page_books['books'][$i]->bk_authorId);
         }
 
         return view('listbooks', [
@@ -26,7 +29,8 @@ class BookController extends BaseController
             'pager'=> $book_model->pager,
             'authors' => $authors,
             'categories' => $categories,
-            'books_categories' => $page_books['books_categories']
+            'books_categories' => $page_books['books_categories'],
+            'books_authors' => $page_books['books_authors']
         ]);
     }
     public function view_details($bookId)
@@ -65,13 +69,15 @@ class BookController extends BaseController
             ->paginate($results_per_page);
 
         if(count($page_books['books']) != 0){
-            $authors = model('AuthorModel')->findAll();
-            $categories = model('CategoryModel')->findAll();
+            $author_model = Model('AuthorModel');
+            $authors = $author_model->findAll();
+            $categories = Model('CategoryModel')->findAll();
 
             for($i = 0; $i<count($page_books['books']); $i++)
             {
                 $id = $page_books['books'][$i]->bk_id;
                 $page_books['books_categories'][$i] = $this->get_categories($id);
+                $page_books['books_authors'][$i] = $author_model->find($page_books['books'][$i]->bk_authorId);
             }
 
 
@@ -80,7 +86,8 @@ class BookController extends BaseController
                 'pager'=> $book_model->pager,
                 'authors' => $authors,
                 'categories' => $categories,
-                'books_categories' => $page_books['books_categories']
+                'books_categories' => $page_books['books_categories'],
+                 'books_authors' => $page_books['books_authors']
             ]);
         }
 
@@ -97,13 +104,20 @@ class BookController extends BaseController
         $book_model = new BookModel();
         //Tablo olarak defaultta zaten tbl_bookdaydı o yüzden ekstra from yazmaya gerek yok
 
+        /*
+        $query = $db ->query("SELECT 'bk_id,bk_ownerId,
+                                    bk_title,bk_authorId,bk_description,bk_editionNumber,bk_mainImgUrl'
+                            FROM tbl_user WHERE bk_ownerId = $userId
+                            GROUP BY bk_id)->getResult();
+        */
+
         $user_books['books'] = $book_model
             ->select('bk_id,bk_ownerId,
                                     bk_title,bk_authorId,bk_description,bk_editionNumber,bk_mainImgUrl')
             ->from('tbl_user')
             ->where('bk_ownerId = '. $userId)
             ->groupBy('bk_id')
-            ->paginate(5);
+            ->findAll();
         $user_books['book_model']= $book_model;
         for($i = 0; $i<count($user_books['books']); $i++)
         {
@@ -114,6 +128,13 @@ class BookController extends BaseController
     }
     public function make_an_offer($bookId)
     {
-        return view('make_offer');
+        return view('make_offer',[
+            'bookId'=> $bookId
+            ]);
+    }
+    public function send_offer($bookId)
+    {
+        $data=$this->request->getPost();
+        var_dump($data);
     }
 }
