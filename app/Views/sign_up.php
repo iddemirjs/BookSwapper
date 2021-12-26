@@ -1,8 +1,12 @@
 <?= view('sections/header') ?>
 <h1 class="article-title text-center background-success" style="margin:0 0 30px 0;padding: .80rem 0; ">Join Us</h1>
 <div class="container" style="display:flex;height: min-content">
-    <form action="../user/create" method="POST" class="row" style="display:flex;padding:10px 20px;flex: 1;">
-        <div class="alert alert-danger">Sign up Error!</div>
+    <form action="../user/create" method="POST" class="row" style="display:table-row;padding:10px 20px;flex: 1;">
+        <!-- Error Warning -->
+        <div id="alertMessage" class="alert alert-danger mb-3" style="display: none">
+            <span id="alertMessage"></span>
+        </div>
+
         <div class="row" style="display:flex;padding:10px 20px;flex: 1;">
             <div class="form-group sm-6" style="padding-left: 5px">
                 <label for="usr_username"><b>Username</b></label>
@@ -34,34 +38,39 @@
                 <input type="password" placeholder="Enter Password Again" name="usr_passwordAgain" required>
             </div>
 
-            <div class="sm-6" style="display: flex;align-items: end;flex-direction: row-reverse;">
-                <button class="btn-outline-primary" type="submit">SignUp</button>
+            <div class="form-group sm-12">
+                <label for="usr_img_url"><b>Image URL</b></label>
+                <input type="text" placeholder="Enter an image url for profile photo" name="usr_img_url" required>
             </div>
+
         </div>
+
+        <div class="sm-6" style="display: flex;align-items: end;flex-direction: row-reverse;">
+            <button type="submit" class="btn-outline-primary">SignUp</button>
+        </div>
+
     </form>
 
-    <div class="container mt-5 sm-4" style="max-width: fit-content; max-height: min-content">
-        <form method="post" id="upload_image_form" enctype="multipart/form-data">
+    <!--
+            <div class="container mt-5 sm-4" style="max-width: fit-content; max-height: min-content">
+                <form method="post" id="upload_image_form" enctype="multipart/form-data">
+                    <div class="d-grid text-center">
+                        <img class="mb-3" id="uploadedImage" alt="Preview Image" src="https://via.placeholder.com/300" />
+                    </div>
 
-            <div id="alertMessage" class="alert alert-warning mb-3" style="display: none">
-                <span id="alertMessage"></span>
+                    <div class="mb-3">
+                        <input id="finput" type="file" name="file" multiple="false" onchange="onFileUpload(this);"
+                               class="form-control form-control-lg"  accept="image/*">
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-danger uploadBtn">Upload</button>
+                    </div>
+                </form>
             </div>
+            -->
 
-            <div class="d-grid text-center">
-                <img class="mb-3" id="uploadedImage" alt="Preview Image" src="https://via.placeholder.com/300" />
-            </div>
-
-            <div class="mb-3">
-                <input id="finput" type="file" name="file" multiple="true" onchange="onFileUpload(this);"
-                       class="form-control form-control-lg"  accept="image/*">
-            </div>
-
-            <div class="d-grid">
-                <button type="submit" class="btn btn-danger uploadBtn">Upload</button>
-            </div>
-        </form>
-    </div>
-
+    <!--
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function onFileUpload(input, id) {
@@ -101,7 +110,8 @@
                                 $('#uploadedImage').attr('src', 'https://via.placeholder.com/300');
                                 $('#alertMessage').html(res.msg);
                                 $('#alertMessage').show();
-                            } else if (res.success == false) {
+                            }
+                            else if (res.success == false) {
                                 $('#alertMessage').html(res.msg);
                                 $('#alertMessage').show();
                             }
@@ -119,6 +129,7 @@
             });
         });
     </script>
+    -->
 
 </div>
 

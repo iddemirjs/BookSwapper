@@ -7,8 +7,9 @@
                 <div class="form-group" style="justify-content: center; display: flex; font-size: xxx-large">
                     <label><b>LOGIN</b></label>
                 </div>
-                <div class="form-group row flex-spaces">
-                    <div class="alert alert-danger" id="sign_in_error">Sign in Error!</div>
+                <!-- Error Warning -->
+                <div id="alertMessage" class="alert alert-danger mb-3" style="display: none">
+                    <span id="alertMessage"></span>
                 </div>
                 <div class="form-group">
                     <label for="usr_username"><b>Username</b></label>
