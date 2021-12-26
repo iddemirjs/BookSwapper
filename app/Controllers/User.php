@@ -9,8 +9,7 @@ class User extends BaseController {
 
     public function index()
     {
-        //return view('profile');
-        return view('listbooks');
+        return view('profile');
     }
 
     public function create()
@@ -25,10 +24,9 @@ class User extends BaseController {
            $userModel->save($user);
            return view('sign_in');
         }else {
-            var_dump($validation->getErrors());
+            $this->alert_function($validation->getErrors());
             return view('sign_up');
         }
-
     }
 
     public function login()
@@ -49,12 +47,65 @@ class User extends BaseController {
                 ]);
                 return redirect()->to(base_url('dashboard'));
             }
+        }
+        else {
+            $this->alert_function($validation->getErrors());
+            return view('sign_in');
+        }
+    }
 
-        }else {
-            echo 'else';
-            var_dump($validation->getErrors());
-
+    public function alert_function($errors)
+    {
+        $all_errors = '';
+        foreach ($errors as $error){
+            //
+            $all_errors = $all_errors." || ".$error;
         }
 
+        // Display the alert box
+        echo "<script>alert('$all_errors');</script>";
+    }
+
+    public function upload()
+    {
+        helper(['form', 'url']);
+
+        $database = db_connect();
+        // Tablo ilişkisi düzeltilecek
+        $builder = $database->table('users');
+
+        $validateImage = $this->validate([
+            'file' => [
+                'uploaded[file]',
+                'mime_in[file, image/png, image/jpg,image/jpeg, image/gif]',
+                'max_size[file, 4096]',
+            ],
+        ]);
+
+        $response = [
+            'success' => false,
+            'data' => '',
+            'msg' => "Image could not upload"
+        ];
+
+        if ($validateImage) {
+            $imageFile = $this->request->getFile('file');
+            $imageFile->move(WRITEPATH . 'uploads');
+
+            $data = [
+                'img_name' => $imageFile->getClientName(),
+                'file'  => $imageFile->getClientMimeType()
+            ];
+
+            $save = $builder->insert($data);
+
+            $response = [
+                'success' => true,
+                'data' => $save,
+                'msg' => "Image successfully uploaded"
+            ];
+        }
+
+        return $this->response->setJSON($response);
     }
 }

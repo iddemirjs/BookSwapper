@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Entities\User;
+use App\Entities\Author;
 use CodeIgniter\Model;
 
 class AuthorModel extends Model
@@ -16,13 +16,12 @@ class AuthorModel extends Model
     ];
 
     protected $validationRules = [
-        'auth_name' => 'required|is_unique[tbl_user.usr_username]',
-        'auth_surname' => 'required|valid_email|is_unique[tbl_user.usr_mail]',
-        'auth_description' => 'required|min_length[6]|max_length[30]',
+        'auth_name' => 'required',
+        'auth_surname' => 'required',
     ];
 
     protected $skipValidation= false;
     protected $allowCallbacks = true;
-    protected $returnType    = AuthorModel::class;
+    protected $returnType    = Author::class;
     protected $useSoftDeletes        = false;
 }

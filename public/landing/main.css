@@ -2329,6 +2329,7 @@ paper-dropdown-menu {
 
 #author-name{
     color: #0d0d0d;
+    width: max-content;
 }
 
 

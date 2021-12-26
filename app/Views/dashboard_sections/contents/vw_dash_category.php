@@ -23,15 +23,15 @@
                                                 <thead>
                                                 <tr role="row">
                                                     <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
+                                                    <th>Category</th>
+                                                    <th>Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tfoot>
                                                 <tr>
                                                     <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
+                                                    <th>Category</th>
+                                                    <th>Action</th>
                                                 </tr>
                                                 </tfoot>
                                                 <tbody>
@@ -77,19 +77,19 @@
                                                 <thead>
                                                 <tr role="row">
                                                     <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Office</th>
-                                                    <th>Office</th>
+                                                    <th>Name</th>
+                                                    <th>Surname</th>
+                                                    <th>Description</th>
+                                                    <th>Description</th>
                                                 </tr>
                                                 </thead>
                                                 <tfoot>
                                                 <tr>
                                                     <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Office</th>
-                                                    <th>Office</th>
+                                                    <th>Name</th>
+                                                    <th>Surname</th>
+                                                    <th>Description</th>
+                                                    <th>Description</th>
                                                 </tr>
                                                 </tfoot>
                                                 <tbody>

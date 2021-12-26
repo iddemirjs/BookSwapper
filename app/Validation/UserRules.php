@@ -8,9 +8,20 @@ class UserRules
         $model = new UserModel();
         $user = $model->where('usr_username', $data['usr_username'])->first();
 
-        if(!$user)
+        if(!$user) {
+            // Burada mesajı error olarak yazdır.
+            echo "<script>alert('User not found!');</script>";
             return false;
-
-        return password_verify($data['usr_password'], $user->usr_password);
+        }
+        else {
+            if(password_verify($data['usr_password'], $user->usr_password)){
+                // password is valid
+            }
+            else{
+                // password is invalid
+                echo "<script>alert('Password is wrong!');</script>";
+            }
+            return password_verify($data['usr_password'], $user->usr_password);
+        }
     }
 }
