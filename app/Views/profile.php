@@ -130,9 +130,8 @@
                                     <?php $i = 0 ?>
 
                                     <?php foreach ($books as $key => $book): ?>
-                                        <a href="/bookcontroller/view_details/<?= $book->bk_id; ?>">
-                                            <btn class="paper-btn margin"
-                                                 style="width: max-content;height: max-content">
+                                        <a class="paper-btn margin"  href="/bookcontroller/view_details/<?= $book->bk_id; ?>"
+                                           style="width: 290px;height: 515px">
                                                 <img src='<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box">
                                                 <p class="book-title"><?= $book->bk_title; ?></p>
                                                 <span class="book-author">Orwell, George</span>
@@ -143,7 +142,6 @@
                                             <?php endforeach ?>
                                             </span>
                                                 <?php $i = $i + 1 ?>
-                                            </btn>
                                         </a>
                                     <?php endforeach ?>
 

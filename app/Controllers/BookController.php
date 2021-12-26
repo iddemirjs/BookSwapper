@@ -17,38 +17,40 @@ class BookController extends BaseController
         $results_per_page = 10;
         $book_model = model('BookModel');
         $page_books['books'] = $book_model->paginate($results_per_page);
-        for($i = 0; $i<count($page_books['books']); $i++)
-        {
+        for ($i = 0; $i < count($page_books['books']); $i++) {
             $id = $page_books['books'][$i]->bk_id;
             $page_books['books_categories'][$i] = $this->get_categories($id);
             $page_books['books_authors'][$i] = $author_model->find($page_books['books'][$i]->bk_authorId);
         }
 
         return view('listbooks', [
-            'books' =>  $page_books['books'],
-            'pager'=> $book_model->pager,
+            'books' => $page_books['books'],
+            'pager' => $book_model->pager,
             'authors' => $authors,
             'categories' => $categories,
             'books_categories' => $page_books['books_categories'],
             'books_authors' => $page_books['books_authors']
         ]);
     }
+
     public function view_details($bookId)
     {
 
         $bookModel = new BookModel();
-        $book= $bookModel->find($bookId);
-        return view ('bookdetails',
-            [ 'book'=>$book
+        $book = $bookModel->find($bookId);
+        return view('bookdetails',
+            ['book' => $book
             ]);
     }
+
     public function get_categories($bookId)
     {
         $db = db_connect();
         $categories = $db->query("SELECT cat_id,cat_name FROM tbl_bookcategory,tbl_category 
-                        WHERE bc_bookId = $bookId AND cat_id = bc_catId" )->getResult();
+                        WHERE bc_bookId = $bookId AND cat_id = bc_catId")->getResult();
         return $categories;
     }
+
     public function sort_by_category($categoryId)
     {
         $results_per_page = 10;
@@ -68,32 +70,27 @@ class BookController extends BaseController
             ->groupBy('bk_id')
             ->paginate($results_per_page);
 
-        if(count($page_books['books']) != 0){
-            $author_model = Model('AuthorModel');
-            $authors = $author_model->findAll();
-            $categories = Model('CategoryModel')->findAll();
+        $author_model = Model('AuthorModel');
+        $authors = $author_model->findAll();
+        $categories = Model('CategoryModel')->findAll();
 
-            for($i = 0; $i<count($page_books['books']); $i++)
-            {
-                $id = $page_books['books'][$i]->bk_id;
-                $page_books['books_categories'][$i] = $this->get_categories($id);
-                $page_books['books_authors'][$i] = $author_model->find($page_books['books'][$i]->bk_authorId);
-            }
-
-
-            return view('listbooks', [
-                'books' =>  $page_books['books'],
-                'pager'=> $book_model->pager,
-                'authors' => $authors,
-                'categories' => $categories,
-                'books_categories' => $page_books['books_categories'],
-                 'books_authors' => $page_books['books_authors']
-            ]);
+        $page_books['books_categories'] = null;
+        $page_books['books_authors'] = null;
+        for ($i = 0; $i < count($page_books['books']); $i++) {
+            $id = $page_books['books'][$i]->bk_id;
+            $page_books['books_categories'][$i] = $this->get_categories($id);
+            $page_books['books_authors'][$i] = $author_model->find($page_books['books'][$i]->bk_authorId);
         }
 
-        else{
-            echo "no books found";
-        }
+
+        return view('listbooks', [
+            'books' => $page_books['books'],
+            'pager' => $book_model->pager,
+            'authors' => $authors,
+            'categories' => $categories,
+            'books_categories' => $page_books['books_categories'],
+            'books_authors' => $page_books['books_authors']
+        ]);
 
 
     }
@@ -115,26 +112,27 @@ class BookController extends BaseController
             ->select('bk_id,bk_ownerId,
                                     bk_title,bk_authorId,bk_description,bk_editionNumber,bk_mainImgUrl')
             ->from('tbl_user')
-            ->where('bk_ownerId = '. $userId)
+            ->where('bk_ownerId = ' . $userId)
             ->groupBy('bk_id')
             ->findAll();
-        $user_books['book_model']= $book_model;
-        for($i = 0; $i<count($user_books['books']); $i++)
-        {
+        $user_books['book_model'] = $book_model;
+        for ($i = 0; $i < count($user_books['books']); $i++) {
             $id = $user_books['books'][$i]->bk_id;
             $user_books['books_categories'][$i] = $this->get_categories($id);
         }
         return $user_books;
     }
+
     public function make_an_offer($bookId)
     {
-        return view('make_offer',[
-            'bookId'=> $bookId
-            ]);
+        return view('make_offer', [
+            'bookId' => $bookId
+        ]);
     }
+
     public function send_offer($bookId)
     {
-        $data=$this->request->getPost();
+        $data = $this->request->getPost();
         var_dump($data);
     }
 }
