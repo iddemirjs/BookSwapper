@@ -1,18 +1,18 @@
-
 <?= view('sections/header') ?>
-
-
     <div class="main-content">
         <!-- Header -->
-        <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+        <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+             style="min-height: 600px; background-image: url(https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
             <!-- Mask -->
             <span class="mask bg-gradient-default opacity-8"></span>
             <!-- Header container -->
             <div class="container-fluid d-flex align-items-center">
                 <div class="row">
                     <div class="col-lg-7 col-md-10">
-                        <h1 class="display-2 text-white">Hello Jesse</h1>
-                        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+                        <h1 class="display-2 text-white">Hello <?= $user->usr_name ?></h1>
+                        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made
+                            with
+                            your work and manage your projects or assigned tasks</p>
                         <a href="#!" class="btn btn-info">Edit profile</a>
                     </div>
                 </div>
@@ -27,7 +27,8 @@
                             <div class="col-lg-3 order-lg-2">
                                 <div class="card-profile-image">
                                     <a href="#">
-                                        <img src="https://demos.creative-tim.com/argon-dashboard/assets/img/theme/team-4.jpg" class="rounded-circle">
+                                        <img src="https://demos.creative-tim.com/argon-dashboard/assets/img/theme/team-4.jpg"
+                                             class="rounded-circle">
                                     </a>
                                 </div>
                             </div>
@@ -59,20 +60,8 @@
                             </div>
                             <div class="text-center">
                                 <h3>
-                                    Jessica Jones<span class="font-weight-light">, 27</span>
+                                    <?= $user->usr_name ?> <?= $user->usr_surname ?>
                                 </h3>
-                                <div class="h5 font-weight-300">
-                                    <i class="ni location_pin mr-2"></i>Bucharest, Romania
-                                </div>
-                                <div class="h5 mt-4">
-                                    <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
-                                </div>
-                                <div>
-                                    <i class="ni education_hat mr-2"></i>University of Computer Science
-                                </div>
-                                <hr class="my-4">
-                                <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
-                                <a href="#">Show more</a>
                             </div>
                         </div>
                     </div>
@@ -96,34 +85,70 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group focused">
-                                                <label class="form-control-label" for="input-username">Username</label>
-                                                <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="Username">
+                                                <label class="form-control-label"
+                                                       for="profile-username">Username</label>
+                                                <h3 id="profile-username"><?= $user->usr_username ?> </h3>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label class="form-control-label" for="input-email">Email address</label>
-                                                <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="email@example.com">
+                                                <label class="form-control-label" for="profile-mail">Email
+                                                    address</label>
+                                                <h3 id="profile-mail"><?= $user->usr_mail ?> </h3>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group focused">
-                                                <label class="form-control-label" for="input-first-name">First name</label>
-                                                <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="First Name">
+                                                <label class="form-control-label" for="profile-name">First name</label>
+                                                <h3 id="profile-name"><?= $user->usr_name ?> </h3>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group focused">
-                                                <label class="form-control-label" for="input-last-name">Last name</label>
-                                                <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value="Last Name">
+                                                <label class="form-control-label" for="profile-surname">Last
+                                                    name</label>
+                                                <h3 id="profile-surname"><?= $user->usr_surname ?> </h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Below will be the listing for books.-->
+                                <h3>Books</h3>
+                                <?php if ($have_books):?>
+                                    <style>
+                                        ul li:before{
+                                            content: '';
+                                        }
+                                        ul li{
+                                            text-indent: 20px;
+                                            font-size: 20px;
+                                            display: inline-block;
+                                        }
+                                    </style>
+                                    <?php $i = 0 ?>
 
+                                    <?php foreach ($books as $key => $book): ?>
+                                        <a class="paper-btn margin"  href="/bookcontroller/view_details/<?= $book->bk_id; ?>"
+                                           style="width: 290px;height: 515px">
+                                                <img src='<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box">
+                                                <p class="book-title"><?= $book->bk_title; ?></p>
+                                                <span class="book-author">Orwell, George</span>
+                                                <span class="book-edition-number"><?= $book->bk_editionNumber; ?></span>
+                                                <span class="book-category">
+                                            <?php foreach ($books_categories[$i] as $key => $books_category): ?>
+                                                <?= $books_category->cat_name; ?>,
+                                            <?php endforeach ?>
+                                            </span>
+                                                <?php $i = $i + 1 ?>
+                                        </a>
+                                    <?php endforeach ?>
+
+                                    <?= $pager->links() ?>
+                                <?php else:?>
+                                <h3>No Books Found</h3>
+                                <?php endif;?>
                             </form>
                         </div>
                     </div>
