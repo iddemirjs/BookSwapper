@@ -22,14 +22,14 @@
             <button onclick="menu()" class="menu_close">&times;</button>
             <ul class="normal">
                 <li><a href="<?= base_url('home');?>" class="active">Home</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Contact</a></li>
+                <li><a href="<?= base_url('home');?>" class="active">About</a></li>
+                <li><a href="<?= base_url('home');?>" class="active">Contact</a></li>
                 <li class="menu_o">
                     <a>More</a>
                     <ul class="down-menu">
-                        <li><a href="">test</a></li>
-                        <li><a href="">test</a></li>
-                        <li><a href="">test</a></li>
+                        <li><a href="<?= base_url('dashboard');?>">Dashboard</a></li>
+                        <li><a href="<?= base_url('user');?>">Profile</a></li>
+                        <li><a href="<?= base_url('bookcontroller');?>">BookList</a></li>
                     </ul>
                 </li>
             </ul>

@@ -9,7 +9,7 @@ class User extends BaseController {
 
     public function index()
     {
-        return view('profile');
+        return $this->view_profile(session()->get('user')["usr_id"]);
     }
     public function view_profile($userId)
     {
@@ -19,7 +19,6 @@ class User extends BaseController {
 
         if(count($user_books['books']) != 0)
         {
-
             return view('profile',[
                 'user' => $user,
                 'books' => $user_books['books'],
