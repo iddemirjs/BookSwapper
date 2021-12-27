@@ -9,13 +9,11 @@ class User extends BaseController {
 
     public function index()
     {
-        return $this->view_profile(session()->get('user')["usr_id"]);
-    }
-    public function view_profile($userId)
-    {
+        $data = session()->get('user');
+        $user = new \App\Entities\User();
+        $user->fill($data);
 
-        $user_books = (new BookController)->get_user_books($userId);
-        $user = Model('UserModel')->find($userId);
+        $user_books = (new BookController)->get_user_books($user->usr_id);
 
         if(count($user_books['books']) != 0)
         {
