@@ -116,6 +116,7 @@ class BookController extends BaseController
             ->groupBy('bk_id')
             ->findAll();
         $user_books['book_model'] = $book_model;
+        $user_books['books_categories'] = null;
         for ($i = 0; $i < count($user_books['books']); $i++) {
             $id = $user_books['books'][$i]->bk_id;
             $user_books['books_categories'][$i] = $this->get_categories($id);

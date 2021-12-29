@@ -10,13 +10,6 @@
 <div class="container">
     <h3 class="nav-title">Sort Options</h3>
     <ul class="sort-options" style="display: inline">
-        <paper-dropdown-menu id="sort-author" label="Author" style="height: min-content">
-            <paper-listbox slot="dropdown-content" selected="0">
-                <?php foreach ($authors as $key => $author): ?>
-                    <paper-item><?= $author->auth_name; ?> <?= $author->auth_surname; ?></paper-item>
-                <?php endforeach ?>
-            </paper-listbox>
-        </paper-dropdown-menu>
         <paper-dropdown-menu id="sort-category" label="Category" style="height: min-content">
             <paper-listbox slot="dropdown-content" selected="0">
                 <?php foreach ($categories as $key => $category): ?>
