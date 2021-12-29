@@ -11,7 +11,55 @@ class User extends BaseController
 
     public function index()
     {
-        return view('profile');
+        $data = session()->get('user');
+        $user = new \App\Entities\User();
+        $user->fill($data);
+
+        $user_books = (new BookController)->get_user_books($user->usr_id);
+
+        if(count($user_books['books']) != 0)
+        {
+            return view('profile',[
+                'user' => $user,
+                'books' => $user_books['books'],
+                'books_categories'=> $user_books['books_categories'],
+                'have_books' => true
+            ]);
+        }
+        else
+        {
+            return view('profile',[
+                'user' => $user,
+                'have_books' => false
+            ]);
+        }
+    }
+    public function view_user_books($userId)
+    {
+        $user_books = (new BookController)->get_user_books($userId);
+        $bcount = count($user_books['books']);
+        $author_model = Model('AuthorModel');
+        for ($i = 0;$i<$bcount;$i++)
+        {
+            $user_books['books_authors'][$i] = $author_model->find($user_books['books'][$i]->bk_authorId);
+        }
+
+        if(count($user_books['books']) != 0)
+        {
+
+            return view('list_user_books',[
+                'books' => $user_books['books'],
+                'books_categories'=> $user_books['books_categories'],
+                'have_books' => true,
+                'books_authors' => $user_books['books_authors']
+            ]);
+        }
+        else
+        {
+            return view('list_user_books',[
+                'have_books' => false
+            ]);
+        }
     }
 
     public function view_profile($userId)
