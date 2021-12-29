@@ -13,7 +13,9 @@
         <paper-dropdown-menu id="sort-author" label="Author" style="height: min-content">
             <paper-listbox slot="dropdown-content" selected="0">
                 <?php foreach ($authors as $key => $author): ?>
-                    <paper-item><?= $author->auth_name; ?> <?= $author->auth_surname; ?></paper-item>
+                    <a href="/bookcontroller/sort_by_author/<?= $author->auth_id; ?>">
+                        <paper-item><?= $author->auth_name; ?> <?= $author->auth_surname; ?></paper-item>
+                    </a>
                 <?php endforeach ?>
             </paper-listbox>
         </paper-dropdown-menu>
@@ -41,7 +43,6 @@
                 <ul class="book-edition-number">Edition Number:<?= $book->bk_editionNumber; ?></ul>
                 <ul class="book-category">Categories:
                     <?php foreach ($books_categories[$b_index] as $key1 => $books_category): ?>
-                        <?= $books_category->cat_name; ?>
                         <?php if ($key1 != count($books_categories[$b_index]) - 1): ?>,
                         <?php endif; ?>
                     <?php endforeach ?>

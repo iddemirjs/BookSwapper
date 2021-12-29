@@ -78,4 +78,14 @@ class Validation
             'rules' => 'required|min_length[6]|max_length[30]|validateUser[email,password]'
         ]
     ];
+    public $validBookNew = [
+        'bk_title' => [
+            'label' => 'bk_title',
+            'rules' => 'required'
+        ],
+        'bk_authorId' => [
+            'label' => 'bk_authorId',
+            'rules' => 'required'
+        ]
+    ];
 }
