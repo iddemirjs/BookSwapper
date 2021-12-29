@@ -17,8 +17,10 @@ class BookController extends BaseController
         $authors = $author_model->findAll();
         $categories = model('CategoryModel')->findAll();
         $results_per_page = 9;
+      
         $book_model = model('BookModel');
         $page_books['books'] = $book_model->paginate($results_per_page);
+      
         for ($i = 0; $i < count($page_books['books']); $i++) {
             $id = $page_books['books'][$i]->bk_id;
             $page_books['books_categories'][$i] = $this->get_categories($id);
@@ -153,8 +155,6 @@ class BookController extends BaseController
             'books_categories' => $page_books['books_categories'],
             'books_authors' => $page_books['books_authors']
         ]);
-
-
     }
 
     public function get_user_books($userId)
@@ -178,6 +178,8 @@ class BookController extends BaseController
             ->groupBy('bk_id')
             ->findAll();
         $user_books['book_model'] = $book_model;
+        $user_books['books_categories'] = null;
+      
         for ($i = 0; $i < count($user_books['books']); $i++) {
             $id = $user_books['books'][$i]->bk_id;
             $user_books['books_categories'][$i] = $this->get_categories($id);

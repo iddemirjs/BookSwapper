@@ -74,5 +74,4 @@
     </style>
 </div>
 
-
 <?= view('sections/footer'); ?>

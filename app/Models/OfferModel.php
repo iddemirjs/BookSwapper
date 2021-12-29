@@ -27,4 +27,15 @@ class OfferModel extends Model
     protected $allowCallbacks = true;
     protected $returnType    = Offer::class;
     protected $useSoftDeletes        = false;
+
+    public function get_received_user_offers($userId)
+    {
+        return $this->where('of_targetUserId = '.$userId)
+                    ->findAll();
+    }
+    public function get_send_user_offers($userId)
+    {
+        return $this->where('of_creatorUserId = '.$userId)
+            ->findAll();
+    }
 }
