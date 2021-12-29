@@ -20,7 +20,7 @@
 
 <div id="books" class="w3-container tab">
     <h2>Books</h2>
-    <?php if ($have_books): ?>
+    <?php if($books != null):?>
         <?php $bcount = count($books)?>
         <div style="display: flex">
             <?php for($b_index= 0;$b_index<$bcount;$b_index++): $book = $books[$b_index]?>
@@ -47,14 +47,45 @@
 
 <div id="Received Waiting" class="w3-container tab" style="display:none">
     <h2>Received Waiting Offers</h2>
+        <div style="display: flex">
+            <?php foreach($received_offers['Waiting'] as $key => $waiting_offer_r):?>
+                <div class='offer' style="margin-right:55px">
+                   <ul class = 'offer-desc'><?=$waiting_offer_r->of_description;?></ul>
+                </div>
+            <?php endforeach; ?>
+        </div>
 </div>
 
 <div id="Send Waiting" class="w3-container tab" style="display:none">
     <h2>Send Waiting Offers</h2>
+    <div class ="row">
+        <?php foreach($send_offers['Waiting'] as $key => $waiting_offer_s):?>
+            <div class='offer' style="margin-right:55px">
+                <p class = 'offer-desc'><?=$waiting_offer_s->of_description;?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
 </div>
 
 <div id="Completed Offers" class="w3-container tab" style="display:none">
     <h2>Completed Offers History</h2>
+    <div class="row">
+        <div class="sm-6">
+            <?php foreach($send_offers['Accepted'] as $key => $waiting_offer_s):?>
+                <div class='offer' style="margin-right:55px">
+                    <p class = 'offer-desc'><?=$waiting_offer_s->of_description;?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div class = "sm-6">
+            <?php foreach($received_offers['Accepted'] as $key => $waiting_offer_r):?>
+                <div class='offer' style="margin-right:55px">
+                    <p class = 'offer-desc'><?=$waiting_offer_r->of_description;?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 </div>
 
 <script>

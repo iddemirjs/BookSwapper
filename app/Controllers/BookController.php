@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Controllers;
-
+use App\Entities\Book;
+use App\Entities\User as UserEntity;
+use App\Entities\Book as BookEntity;
 use App\Models\BookModel;
+use App\Models\UserModel;
 use CodeIgniter\Model;
 use phpDocumentor\Reflection\Types\ClassString;
 
@@ -10,13 +13,14 @@ class BookController extends BaseController
 {
     public function index()
     {
-
         $author_model = Model('AuthorModel');
         $authors = $author_model->findAll();
         $categories = model('CategoryModel')->findAll();
-        $results_per_page = 10;
+        $results_per_page = 9;
+      
         $book_model = model('BookModel');
         $page_books['books'] = $book_model->paginate($results_per_page);
+      
         for ($i = 0; $i < count($page_books['books']); $i++) {
             $id = $page_books['books'][$i]->bk_id;
             $page_books['books_categories'][$i] = $this->get_categories($id);
@@ -35,12 +39,36 @@ class BookController extends BaseController
 
     public function view_details($bookId)
     {
-
         $bookModel = new BookModel();
         $book = $bookModel->find($bookId);
         return view('bookdetails',
             ['book' => $book
             ]);
+    }
+
+    public function create()
+    {
+        $validation =  \Config\Services::validation();
+
+        if ($validation->run($this->request->getPost(),'validBookNew')) {
+            $data = $this->request->getPost();
+            $book = new BookEntity();
+            $book->fill($data);
+            $bookModel = new BookModel();
+            $bookModel->save($book);
+            return view('main');
+        }else {
+            $this->alert_function($validation->getErrors());
+            return view('main');
+        }
+    }
+
+    public function get_authors($bookId)
+    {
+        $db = db_connect();
+        $authors = $db->query("SELECT auth_id,auth_name FROM tbl_author,tbl_book
+                        WHERE bk_id = $bookId AND bk_authorId = auth_id")->getResult();
+        return $authors;
     }
 
     public function get_categories($bookId)
@@ -91,8 +119,42 @@ class BookController extends BaseController
             'books_categories' => $page_books['books_categories'],
             'books_authors' => $page_books['books_authors']
         ]);
+    }
+
+    public function sort_by_author($authorId)
+    {
+        $results_per_page = 10;
+        $book_model = new BookModel();
+        $where_key = 'bk_authorId = ' . $authorId;
+        $page_books['books'] = $book_model->select('bk_id,bk_ownerId,
+                                    bk_title,bk_authorId,bk_description,bk_editionNumber,bk_mainImgUrl')
+            ->from('tbl_bookcategory')
+            ->from('tbl_category')
+            ->where($where_key)
+            ->groupBy('bk_id')
+            ->paginate($results_per_page);
+
+        $author_model = Model('AuthorModel');
+        $authors = $author_model->findAll();
+        $categories = Model('CategoryModel')->findAll();
+
+        $page_books['books_categories'] = null;
+        $page_books['books_authors'] = null;
+        for ($i = 0; $i < count($page_books['books']); $i++) {
+            $id = $page_books['books'][$i]->bk_id;
+            $page_books['books_categories'][$i] = $this->get_authors($id);
+            $page_books['books_authors'][$i] = $author_model->find($page_books['books'][$i]->bk_authorId);
+        }
 
 
+        return view('listbooks', [
+            'books' => $page_books['books'],
+            'pager' => $book_model->pager,
+            'authors' => $authors,
+            'categories' => $categories,
+            'books_categories' => $page_books['books_categories'],
+            'books_authors' => $page_books['books_authors']
+        ]);
     }
 
     public function get_user_books($userId)
@@ -116,6 +178,8 @@ class BookController extends BaseController
             ->groupBy('bk_id')
             ->findAll();
         $user_books['book_model'] = $book_model;
+        $user_books['books_categories'] = null;
+      
         for ($i = 0; $i < count($user_books['books']); $i++) {
             $id = $user_books['books'][$i]->bk_id;
             $user_books['books_categories'][$i] = $this->get_categories($id);
