@@ -23,7 +23,7 @@
             <ul class="normal">
                 <li><a href="<?= base_url('home');?>" class="active">Home</a></li>
                 <li><a href="<?= base_url('home');?>" class="active">About</a></li>
-                <li><a href="<?= base_url('home');?>" class="active">Contact</a></li>
+                <li><a href="<?= base_url('bookadding');?>" class="active">Contact(Book Add)</a></li>
                 <li class="menu_o">
                     <a>More</a>
                     <ul class="down-menu">
