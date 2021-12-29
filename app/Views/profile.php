@@ -145,7 +145,6 @@
                                         </a>
                                     <?php endforeach ?>
 
-                                    <?= $pager->links() ?>
                                 <?php else:?>
                                 <h3>No Books Found</h3>
                                 <?php endif;?>
