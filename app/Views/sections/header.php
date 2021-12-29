@@ -14,7 +14,7 @@
 <header>
     <nav>
         <h1 class="logo">
-            LOGO FONT
+            BOOK SWAPPER
         </h1>
         <button onclick="menu()" class="menu_open"><i class="fas fa-ellipsis-v"></i></button>
 

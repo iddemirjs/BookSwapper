@@ -22,15 +22,8 @@
 <!--                    <paper-dropdown-menu id="sort-author" label="Author" style="height: min-content">-->
 <!--                        <paper-listbox slot="dropdown-content" selected="0">-->
 <!--                            --><?php //foreach ($authors as $key => $author): ?>
-<!--                                <paper-item>--><?//= $author->auth_name; ?><!-- --><?//= $author->auth_surname; ?><!--</paper-item>-->
-<!--                            --><?php //endforeach ?>
-<!--                        </paper-listbox>-->
-<!--                    </paper-dropdown-menu>-->
-<!--                    <paper-dropdown-menu id="sort-category" label="Category" style="height: min-content">-->
-<!--                        <paper-listbox slot="dropdown-content" selected="0">-->
-<!--                            --><?php //foreach ($categories as $key => $category): ?>
-<!--                                <a href="/bookcontroller/sort_by_category/--><?//= $category->cat_id; ?><!--">-->
-<!--                                    <paper-item>--><?//= $category->cat_name; ?><!--</paper-item>-->
+<!--                                <a href="/bookcontroller/sort_by_author/--><?//= $author->auth_id; ?><!--">-->
+<!--                                    <paper-item>--><?//= $author->auth_name; ?><!-- --><?//= $author->auth_surname; ?><!--</paper-item>-->
 <!--                                </a>-->
 <!--                            --><?php //endforeach ?>
 <!--                        </paper-listbox>-->
