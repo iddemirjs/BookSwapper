@@ -62,12 +62,10 @@ header nav .m_menu ul li {
     list-style: none;
 }
 header nav .m_menu ul li a {
-    display: block;
     padding: 10px;
     font-size: 16px;
     color: #ccc;
     text-decoration: none;
-    text-transform: uppercase;
     transition: opacity 0.3s ease-in-out;
     font-weight: bold;
     cursor: pointer;
@@ -246,7 +244,6 @@ nav .m_menu ul li{
 .footer .heading {
     max-width: 1010px;
     width: 90%;
-    text-transform: uppercase;
     margin: 0 auto;
     margin-bottom: 3rem;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
@@ -313,42 +310,6 @@ footer hr {
 /* End Footer Coding */
 
 /*Start Profile Coding*/
-:root {
-    --blue: #5e72e4;
-    --indigo: #5603ad;
-    --purple: #8965e0;
-    --pink: #f3a4b5;
-    --red: #f5365c;
-    --orange: #fb6340;
-    --yellow: #ffd600;
-    --green: #2dce89;
-    --teal: #11cdef;
-    --cyan: #2bffc6;
-    --white: #fff;
-    --gray: #8898aa;
-    --gray-dark: #32325d;
-    --light: #ced4da;
-    --lighter: #e9ecef;
-    --primary: #5e72e4;
-    --secondary: #f7fafc;
-    --success: #2dce89;
-    --info: #11cdef;
-    --warning: #fb6340;
-    --danger: #f5365c;
-    --light: #adb5bd;
-    --dark: #212529;
-    --default: #172b4d;
-    --white: #fff;
-    --neutral: #fff;
-    --darker: black;
-    --breakpoint-xs: 0;
-    --breakpoint-sm: 576px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 992px;
-    --breakpoint-xl: 1200px;
-    --font-family-sans-serif: Open Sans, sans-serif;
-    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-}
 
 *,
 *::before,
@@ -984,9 +945,6 @@ textarea.form-control {
     background-color: #0b1526;
 }
 
-.btn-default:not(:disabled):not(.disabled):active:focus {
-    box-shadow: none, 0 0 0 0 rgba(23, 43, 77, .5);
-}
 
 .btn-sm {
     font-size: .875rem;
@@ -1876,7 +1834,7 @@ a.text-white:focus {
     font-weight: 700;
     padding-right: 1rem;
     padding-left: 1rem;
-    text-transform: uppercase;
+
     color: #f6f9fc;
 }
 
@@ -2094,11 +2052,9 @@ textarea[resize='horizontal'] {
 }
 
 .nav-link {
-    color: #525f7f;
 }
 
 .nav-link:hover {
-    color: #5e72e4;
 }
 
 .nav-link i.ni {
@@ -2263,7 +2219,6 @@ p {
     font-size: .95rem;
     font-weight: 600;
     letter-spacing: .025em;
-    text-transform: uppercase;
 }
 
 .heading-small {
@@ -2271,7 +2226,6 @@ p {
     padding-top: .25rem;
     padding-bottom: .25rem;
     letter-spacing: .04em;
-    text-transform: uppercase;
 }
 
 .display-2 span {

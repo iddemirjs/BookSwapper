@@ -13,6 +13,7 @@ class User extends Entity {
         'usr_mail' => null,
         'usr_username' => null,
         'usr_password' => null,
+        'usr_type' => null,
         'usr_img_url'=>null,
     ];
 }

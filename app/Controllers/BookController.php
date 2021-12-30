@@ -74,7 +74,7 @@ class BookController extends BaseController
     public function get_categories($bookId)
     {
         $db = db_connect();
-        $categories = $db->query("SELECT cat_id,cat_name FROM tbl_bookcategory,tbl_category 
+        $categories = $db->query("SELECT cat_id,cat_name FROM tbl_bookCategory,tbl_category 
                         WHERE bc_bookId = $bookId AND cat_id = bc_catId")->getResult();
         return $categories;
     }
@@ -92,7 +92,7 @@ class BookController extends BaseController
         $where_key = 'bk_id = bc_bookId AND cat_id = bc_catId AND cat_id = ' . $categoryId;
         $page_books['books'] = $book_model->select('bk_id,bk_ownerId,
                                     bk_title,bk_authorId,bk_description,bk_editionNumber,bk_mainImgUrl')
-            ->from('tbl_bookcategory')
+            ->from('tbl_bookCategory')
             ->from('tbl_category')
             ->where($where_key)
             ->groupBy('bk_id')
@@ -128,7 +128,7 @@ class BookController extends BaseController
         $where_key = 'bk_authorId = ' . $authorId;
         $page_books['books'] = $book_model->select('bk_id,bk_ownerId,
                                     bk_title,bk_authorId,bk_description,bk_editionNumber,bk_mainImgUrl')
-            ->from('tbl_bookcategory')
+            ->from('tbl_bookCategory')
             ->from('tbl_category')
             ->where($where_key)
             ->groupBy('bk_id')

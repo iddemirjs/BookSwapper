@@ -4,14 +4,15 @@ namespace App\Entities;
 
 use CodeIgniter\Entity\Entity;
 
-class Book extends Entity
-{
+class Book extends Entity {
+
     protected $attributes = [
-        'bk_id',
-        'bk_title',
-        'bk_authorId',
-        'bk_description',
-        'bk_editionNumber',
-        'bk_mainImgUrl',
+        'bk_id' => null,
+        'bk_ownerId'=> null,
+        'bk_title'=> null,
+        'bk_authorId'=> null,
+        'bk_description'=> null,
+        'bk_editionNumber'=> null,
+        'bk_mainImgUrl'=> null
     ];
 }

@@ -21,21 +21,22 @@
         <div class="m_menu">
             <button onclick="menu()" class="menu_close">&times;</button>
             <ul class="normal">
-                <li><a href="<?= base_url('home');?>" class="active">Home</a></li>
-                <li><a href="<?= base_url('home');?>" class="active">About</a></li>
-                <li><a href="<?= base_url('bookadding');?>" class="active">Contact(Book Add)</a></li>
-                <li class="menu_o">
-                    <a>More</a>
-                    <ul class="down-menu">
-                        <li><a href="<?= base_url('dashboard');?>">Dashboard</a></li>
-                        <li><a href="<?= base_url('user');?>">Profile</a></li>
-                        <li><a href="<?= base_url('bookcontroller');?>">BookList</a></li>
-                    </ul>
+                <li><a href="<?= base_url('home'); ?>">Home</a></li>
+                <?php if (session()->get('user') && session()->get('user')['usr_type'] === '1'): ?>
+                    <li><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
+                <?php endif ?>
+                <li><a href="<?= base_url('bookcontroller'); ?>">BookList</a></li>
                 </li>
             </ul>
             <ul class="user">
-                <li><a class="button signin" href="<?= base_url('home/signIn');?>">SignIn</a></li>
-                <li><a class="button signup" href="<?= base_url('home/signUp');?>">SignUp</a></li>
+                <?php if (session()->get('user')): ?>
+                    <li><a class="button signin"
+                           href="<?= base_url('user'); ?>">Profile <?= session()->get('user')['usr_username']; ?></a>
+                    </li>
+                <?php else: ?>
+                    <li><a class="button signin" href="<?= base_url('home/signIn'); ?>">Login</a></li>
+                    <li><a class="button signup" href="<?= base_url('home/signUp'); ?>">Register</a></li>
+                <?php endif ?>
             </ul>
         </div>
     </nav>
