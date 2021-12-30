@@ -18,10 +18,7 @@ class AuthorModel extends Model
     protected $validationRules = [
         'auth_name' => 'required',
         'auth_surname' => 'required',
-<<<<<<< HEAD
         'auth_description' => 'required',
-=======
->>>>>>> main
     ];
 
     protected $skipValidation= false;

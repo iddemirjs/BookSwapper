@@ -16,6 +16,7 @@ class UserModel extends Model
         'usr_username',
         'usr_password',
         'usr_updated_at',
+        'usr_type',
         'usr_img_url',
     ];
 

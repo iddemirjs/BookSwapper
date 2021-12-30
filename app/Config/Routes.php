@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->post('user/create', 'User::create');
+$routes->post('user/logout', 'User::logout');
 
 // Author URLs
 $routes->get('dashboard/delete_author/(:num)', 'Dashboard::delete_author/$1');

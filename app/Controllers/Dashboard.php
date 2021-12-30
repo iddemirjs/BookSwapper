@@ -12,6 +12,13 @@ use App\Models\UserModel;
 
 class Dashboard extends BaseController
 {
+    public function __construct()
+    {
+        if (session()->get('user')['usr_type'] === '0') {
+            die('unauthorized access');
+        }
+    }
+
     public function index()
     {
         return view('dashboard_sections/contents/vw_dash_main');
@@ -49,7 +56,6 @@ class Dashboard extends BaseController
             'categories' => $all_cat,
             'authors' => $all_author,
             'users' => $users
-
         ]);
     }
 

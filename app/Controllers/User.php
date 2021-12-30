@@ -81,6 +81,7 @@ class User extends BaseController
         ]);
 
     }
+
     private function categorize_offers($offers)
     {
         $cat_offers['Waiting'] = [];
@@ -132,9 +133,13 @@ class User extends BaseController
                     'usr_name' => $user->usr_name,
                     'usr_surname' => $user->usr_username,
                     'usr_mail' => $user->usr_mail,
+                    'usr_type' => $user->usr_type,
                     'usr_loggedIn' => true,
                 ]);
-                return redirect()->to(base_url('dashboard'));
+                if ($user->user_type == 1)
+                    return redirect()->to(base_url('dashboard'));
+                else
+                    return redirect()->to(base_url('home'));
             }
         } else {
             $this->alert_function($validation->getErrors());
@@ -195,5 +200,11 @@ class User extends BaseController
         }
 
         return $this->response->setJSON($response);
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to(base_url('home'));
     }
 }

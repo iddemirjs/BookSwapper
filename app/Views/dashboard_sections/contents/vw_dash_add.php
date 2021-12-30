@@ -54,7 +54,7 @@
                                     <label for="exampleInputFile">User Photo</label>
                                     <input type="file" id="exampleInputFile" name="usr_img_url" class="form-control">
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-md">Save</button>
+                                <button type="submit" class="btn btn-primary btn-md"><?= (isset($userEdit) ? 'Update' : 'Save') ?></button>
                             </form>
                         </div><!-- .widget-body -->
                     </div><!-- .widget -->
@@ -190,7 +190,7 @@
                                     <label for="exampleInputFile">Cover Image</label>
                                     <input type="file"  name="bk_mainImgUrl" class="form-control">
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-md">Save</button>
+                                <button type="submit" class="btn btn-primary btn-md"><?= (isset($bookEdit) ? 'Update' : 'Save'); ?></button>
                             </form>
                         </div><!-- .widget-body -->
                     </div><!-- .widget -->
