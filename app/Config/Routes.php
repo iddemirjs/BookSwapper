@@ -44,6 +44,7 @@ $routes->get('dashboard/update_category/(:num)', 'Dashboard::update_category/$1'
 // Book URLs
 $routes->get('dashboard/delete_book/(:num)', 'Dashboard::delete_book/$1');
 $routes->get('dashboard/update_book/(:num)', 'Dashboard::update_book/$1');
+$routes->get('offer/make/(:num)', 'OfferController::make/$1');
 
 /*
  * --------------------------------------------------------------------

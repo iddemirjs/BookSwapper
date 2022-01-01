@@ -9,55 +9,52 @@
 <?= view('sections/header') ?>
 <div class="container" style="display: flex">
     <div class="container" style="display: flex">
-        <ul class="sort-options" style="display:flex">
-            <div class="form-group">
-                <h4 class="nav-title" style="margin-top: 80px">Sort Options</h4>
-                <paper-dropdown-menu id="sort-author" label="Author" style="height: min-content">
-                    <paper-listbox slot="dropdown-content" selected="0">
-                        <?php foreach ($authors as $key => $author): ?>
-                            <a href="/bookcontroller/sort_by_author/<?= $author->auth_id; ?>">
-                                <paper-item><?= $author->auth_name; ?> <?= $author->auth_surname; ?></paper-item>
-                            </a>
-                        <?php endforeach ?>
-                    </paper-listbox>
-                </paper-dropdown-menu>
-                <paper-dropdown-menu id="sort-category" label="Category" style="height: min-content">
-                    <paper-listbox slot="dropdown-content" selected="0">
-                        <?php foreach ($categories as $key => $category): ?>
-                            <a href="/bookcontroller/sort_by_category/<?= $category->cat_id; ?>">
-                                <paper-item><?= $category->cat_name; ?></paper-item>
-                            </a>
-                        <?php endforeach ?>
-                    </paper-listbox>
-                </paper-dropdown-menu>
+            <div class="form-inline">
+                <label for="paperSelects1" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;"> Author: </label>
+                <select id="paperSelects1">
+                    <?php foreach ($authors as $key => $author): ?>
+                        <option value="<?= $author->auth_id; ?>"><?= $author->auth_name . ' ' . $author->auth_surname;; ?></option>
+                    <?php endforeach ?>
+                </select>
             </div>
-        </ul>
+            <div class="form-inline" style="float: right">
+                <label for="paperSelects1" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;"> Category: </label>
+                <select id="paperSelects1">
+                    <?php foreach ($categories as $key => $category): ?>
+                        <option value="<?= $category->cat_id; ?>"><?= $category->cat_name; ?></option>
+                    <?php endforeach ?>
+                </select>
+            </div>
     </div>
-    <div class="container sm-12" id="booklistcontainer">
-        <div class="booklist">
-            <?php $bcount = count($books) ?>
-            <?php for ($b_index = 0; $b_index < $bcount; $b_index++): $book = $books[$b_index] ?>
-                <a class="paper-btn margin"  href="/bookcontroller/view_details/<?= $book->bk_id; ?>"
-                   style="width: 290px;height: 515px">
-                    <img src='<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box;width:255px;height:320px">
-                    <ul class="book-title"><?= $book->bk_title; ?></ul>
-                    <ul class="book-author">Author:
-                        <?= $books_authors[$b_index]->auth_name; ?> <?= $books_authors[$b_index]->auth_surname; ?></ul>
-                    <ul class="book-edition-number">Edition Number:<?= $book->bk_editionNumber; ?></ul>
-                    <ul class="book-category">Categories:
+</div>
+<div class="container sm-12" id="booklistcontainer">
+    <div class="booklist">
+        <?php $bcount = count($books) ?>
+        <?php for ($b_index = 0; $b_index < $bcount; $b_index++): $book = $books[$b_index] ?>
+            <div class="card col-4" style="padding: 0px 0px;">
+                <img src="<?= isset($book->bk_mainImgUrl)?'https://picsum.photos/768':$book->bk_mainImgUrl; ?>" alt="Card example image">
+
+                <div class="card-body">
+                    <h4 class="card-title"><?= $book->bk_title; ?> EN: <?= $book->bk_editionNumber; ?></h4>
+                    <h5 class="card-subtitle"><?= $books_authors[$b_index]->auth_name; ?> <?= $books_authors[$b_index]->auth_surname; ?></h5>
+                    <p class="card-text">
+                    <ul class="book-category" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;">
+                        Categories:
                         <?php foreach ($books_categories[$b_index] as $key1 => $books_category): ?>
-                            <?php if ($key1 != count($books_categories[$b_index]) - 1): ?>,
-                            <?php endif; ?>
+                            <li><?= $books_category->cat_name; ?></li>
                         <?php endforeach ?>
                     </ul>
-                </a>
-            <?php endfor ?>
-        </div>
+                    </p>
+                    <button class="btn-warning makeOffer" data-bookId="<?= $book->bk_id; ?>" style="position: absolute;bottom: 20px;right: 20px;">Make Offer</button>
+                </div>
+            </div>
+        <?php endfor ?>
     </div>
+</div>
 </div>
 
 <div style="display:flex;margin-left: 180px">
-    <label style="font-size: 30px; margin: 15px"><b>Page: </b></label>
+    <label style="font-size: 30px; margin: 15px;font-family: Patrick Hand SC,sans-serif;font-weight: 400;"><b>Page: </b></label>
     <?= $pager->links() ?>
 
     <style>
@@ -74,4 +71,8 @@
     </style>
 </div>
 
-<?= view('sections/footer'); ?>
+<?= view('sections/footer',['scripts' => [
+    'lister.js',
+    "../libs/misc/datatables/datatables.min.css",
+    "../libs/misc/datatables/datatables.min.js"
+]]); ?>
