@@ -168,7 +168,7 @@ class BookController extends BaseController
         $page_books['books_authors'] = null;
         for ($i = 0; $i < count($page_books['books']); $i++) {
             $id = $page_books['books'][$i]->bk_id;
-            $page_books['books_categories'][$i] = $this->get_authors($id);
+            $page_books['books_categories'][$i] = $this->get_categories($id);
             $page_books['books_authors'][$i] = $author_model->find($page_books['books'][$i]->bk_authorId);
         }
 

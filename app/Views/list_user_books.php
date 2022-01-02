@@ -9,13 +9,11 @@
 </style>
 <body>
 
-
-
 <div class="w3-bar w3-black">
-    <button class="w3-bar-item w3-button" onclick="openTab('books')">Books</button>
-    <button class="w3-bar-item w3-button" onclick="openTab('Received Waiting')">Received Waiting Offers</button>
-    <button class="w3-bar-item w3-button" onclick="openTab('Send Waiting')">Send Waiting Offers</button>
-    <button class="w3-bar-item w3-button" onclick="openTab('Completed Offers')">Completed Offers History</button>
+    <button class="w3-bar-item w3-button" type="button" onclick="openTab('books')">Books</button>
+    <button class="w3-bar-item w3-button" type="button" onclick="openTab('Received Waiting')">Received Waiting Offers</button>
+    <button class="w3-bar-item w3-button" type="button" onclick="openTab('Send Waiting')">Send Waiting Offers</button>
+    <button class="w3-bar-item w3-button" type="button" onclick="openTab('Completed Offers')">Completed Offers History</button>
 </div>
 
 <div id="books" class="w3-container tab">

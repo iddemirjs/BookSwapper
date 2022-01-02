@@ -53,5 +53,11 @@
 </div>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 <script src="<?= base_url('landing/main.js'); ?>"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<?php if (isset($scripts)): ?>
+    <?php foreach ($scripts as $file_name): ?>
+        <script src="/scripts/<?= $file_name; ?>"></script>
+    <?php endforeach ?>
+<?php endif ?>
 </body>
 </html>

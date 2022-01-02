@@ -26,6 +26,12 @@ $(document).ready(function () {
         }
     });
     if ($(".editBookContainer").data("current")) scrollDown();
+    $(".makeOffer").click(function (event) {
+        let bookId = $(this).data("bookid");
+        if (bookId !== undefined){
+            window.location = "/offer/make/"+bookId;
+        }
+    });
 });
 function scrollDown() {
     $(window).load(function () {

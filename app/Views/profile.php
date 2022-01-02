@@ -115,39 +115,12 @@
                                     </div>
                                 </div>
                                 <!-- Below will be the listing for books.-->
-                                <h3>Books</h3>
-                                <?php if ($have_books):?>
-                                    <style>
-                                        ul li:before{
-                                            content: '';
-                                        }
-                                        ul li{
-                                            text-indent: 20px;
-                                            font-size: 20px;
-                                            display: inline-block;
-                                        }
-                                    </style>
-                                    <?php $i = 0 ?>
+                                <?=view('list_user_books',['books'=>$books,
+                                    'received_offers'=>$received_offers,
+                                    'send_offers'=>$send_offers,
+                                    'books_categories'=>$books_categories,
+                                    'books_authors'=>$books_authors]);?>
 
-                                    <?php foreach ($books as $key => $book): ?>
-                                        <a class="paper-btn margin"  href="/bookcontroller/view_details/<?= $book->bk_id; ?>"
-                                           style="width: 290px;height: 515px">
-                                                <img src='<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box">
-                                                <p class="book-title"><?= $book->bk_title; ?></p>
-                                                <span class="book-author">Orwell, George</span>
-                                                <span class="book-edition-number"><?= $book->bk_editionNumber; ?></span>
-                                                <span class="book-category">
-                                            <?php foreach ($books_categories[$i] as $key => $books_category): ?>
-                                                <?= $books_category->cat_name; ?>,
-                                            <?php endforeach ?>
-                                            </span>
-                                                <?php $i = $i + 1 ?>
-                                        </a>
-                                    <?php endforeach ?>
-
-                                <?php else:?>
-                                <h3>No Books Found</h3>
-                                <?php endif;?>
                             </form>
                         </div>
                     </div>

@@ -13,52 +13,42 @@ class User extends BaseController
     public function index()
     {
         $data = session()->get('user');
-        $user = new \App\Entities\User();
+        $user = new UserEntity();
         $user->fill($data);
 
-        $user_books = (new BookController)->get_user_books($user->usr_id);
+        $user_books = $this->get_user_books_details($user->usr_id);
+        $user_offers = $this->get_user_offers_details($user->usr_id);
 
-        if(count($user_books['books']) != 0)
-        {
-            return view('profile',[
-                'user' => $user,
-                'books' => $user_books['books'],
-                'books_categories'=> $user_books['books_categories'],
-                'have_books' => true
-            ]);
-        }
-        else
-        {
-            return view('profile',[
-                'user' => $user,
-                'have_books' => false
-            ]);
-        }
+        return view('profile', [
+            'user' => $user,
+            'books' => $user_books['books'],
+            'books_categories' => $user_books['books_categories'],
+            'books_authors'=>$user_books['books_authors'],
+            'received_offers'=>$user_offers['received_offers'],
+            'send_offers' =>$user_offers['send_offers']
+        ]);
     }
 
-    public function view_profile($userId)
+    public function view_profile($userId = -1)
     {
-
-        $user_books = (new BookController)->get_user_books($userId);
         $user = Model('UserModel')->find($userId);
-
-        if (count($user_books['books']) != 0) {
-
-            return view('profile', [
-                'user' => $user,
-                'books' => $user_books['books'],
-                'books_categories' => $user_books['books_categories'],
-                'have_books' => true
-            ]);
-        } else {
-            return view('profile', [
-                'user' => $user,
-                'have_books' => false
-            ]);
+        if (!$user) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        $user_books = $this->get_user_books_details($userId);
+        $user_offers = $this->get_user_offers_details($userId);
+
+        return view('profile', [
+            'user' => $user,
+            'books' => $user_books['books'],
+            'books_categories'=>$user_books['books_categories'],
+            'books_authors'=>$user_books['books_authors'],
+            'received_offers'=>$user_offers['received_offers'],
+            'send_offers' =>$user_offers['send_offers']
+        ]);
     }
 
-    public function view_user_books($userId)
+    public function get_user_books_details($userId)
     {
         $user_books = (new BookController)->get_user_books($userId);
         $bcount = count($user_books['books']);
@@ -67,19 +57,7 @@ class User extends BaseController
         for ($i = 0; $i < $bcount; $i++) {
             $user_books['books_authors'][$i] = $author_model->find($user_books['books'][$i]->bk_authorId);
         }
-
-        $offer_model = Model('OfferModel');
-        //offer status 0 Waiting 1 Accepted 2 Rejected
-        $user_offers['received_offers'] = $this->categorize_offers($offer_model->get_received_user_offers($userId));
-        $user_offers['send_offers'] = $this->categorize_offers($offer_model->get_send_user_offers($userId));
-
-        return view('list_user_books', [
-            'books' => $user_books['books'],
-            'books_categories' => $user_books['books_categories'],
-            'books_authors' => $user_books['books_authors'],
-            'received_offers' => $user_offers['received_offers'],
-            'send_offers'=> $user_offers['send_offers']
-        ]);
+        return $user_books;
 
     }
 
@@ -102,7 +80,14 @@ class User extends BaseController
         }
         return $cat_offers;
     }
-
+    private function get_user_offers_details($userId)
+    {
+        $offer_model = Model('OfferModel');
+        //offer status 0 Waiting 1 Accepted 2 Rejected
+        $user_offers['received_offers'] = $this->categorize_offers($offer_model->get_received_user_offers($userId));
+        $user_offers['send_offers'] = $this->categorize_offers($offer_model->get_send_user_offers($userId));
+        return $user_offers;
+    }
     public function create()
     {
         define ('img_upload_dir', realpath(dirname('user_images')));
