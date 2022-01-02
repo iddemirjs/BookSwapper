@@ -7,7 +7,7 @@
       href="https://raw-dot-custom-elements.appspot.com/PolymerElements/paper-dropdown-menu/v2.0.0/paper-dropdown-menu/../paper-listbox/paper-listbox.html">
 
 <?= view('sections/header') ?>
-<h1 class="article-title text-center background-success" style="margin:0 0 30px 0;padding: .80rem 0; ">Add your book</h1>
+<h1 class="article-title text-center background-success" style="margin:0 0 30px 0;padding: .80rem 0; ">Edit Your Book</h1>
 <div class="container" style="display:flex;height: min-content">
     <form action="../update/<?=$book->bk_id?>" method="POST" enctype="multipart/form-data" class="row" style="display:table-row;padding:10px 20px;flex: 1;">
         <!-- Error Warning -->
