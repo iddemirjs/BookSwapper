@@ -2277,3 +2277,9 @@ paper-dropdown-menu {
 
 
 /*End BookList Coding*/
+
+/*Start Make Offer*/
+.addBookToList:hover{
+    cursor: pointer;
+}
+/*End Make Offer*/

@@ -78,6 +78,18 @@ class Validation
             'rules' => 'required|min_length[6]|max_length[30]|validateUser[email,password]'
         ]
     ];
+    public $validOffer = [
+        'of_creatorUserId' => [
+            'required'
+        ],
+        'of_targetUserId' => [
+            'required'
+        ],
+        'of_description' => [
+            'max_length[255]'
+        ],
+
+    ];
     public $validBookNew = [
         'bk_title' => [
             'label' => 'bk_title',

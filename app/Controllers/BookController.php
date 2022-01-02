@@ -213,11 +213,15 @@ class BookController extends BaseController
         return $user_books;
     }
 
-    public function make_an_offer($bookId)
+    public function getBookById($bookId)
     {
-        return view('make_offer', [
-            'bookId' => $bookId
-        ]);
+        $bookModel = new BookModel();
+        $book = $bookModel->where(['bk_id'=>$bookId])->find();
+        if (count($book) == 0){
+            return json_encode(['status' => false]);
+        }else{
+            return json_encode(['status' => true,'book'=>$book[0]]);
+        }
     }
 
     public function send_offer($bookId)

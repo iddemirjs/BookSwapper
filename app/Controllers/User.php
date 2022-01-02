@@ -29,6 +29,24 @@ class User extends BaseController
         ]);
     }
 
+    public function profile($userId = -1)
+    {
+        $user = Model('UserModel')->find($userId);
+        if (!$user) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        $user_books = $this->get_user_books_details($userId);
+        $user_offers = $this->get_user_offers_details($userId);
+
+        return view('profilePaper', [
+            'user' => $user,
+            'books' => $user_books['books'],
+            'books_categories'=>$user_books['books_categories'],
+            'books_authors'=>$user_books['books_authors'],
+            'received_offers'=>$user_offers['received_offers'],
+            'send_offers' =>$user_offers['send_offers']
+        ]);
+    }
     public function view_profile($userId = -1)
     {
         $user = Model('UserModel')->find($userId);
@@ -129,6 +147,7 @@ class User extends BaseController
                     'usr_surname' => $user->usr_username,
                     'usr_mail' => $user->usr_mail,
                     'usr_type' => $user->usr_type,
+                    'usr_img_url' => $user->usr_img_url,
                     'usr_loggedIn' => true,
                 ]);
                 if ($user->user_type == 1)
