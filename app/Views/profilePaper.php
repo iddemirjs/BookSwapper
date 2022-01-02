@@ -70,9 +70,9 @@
                 <h3>Books</h3>
                 <?php if ($books != null): ?>
                     <?php $bcount = count($books) ?>
-                    <div style="display: flex">
+                    <div class="row" style="display: flex">
                         <?php for ($b_index = 0; $b_index < $bcount; $b_index++): $book = $books[$b_index] ?>
-                            <div class='book border border-5 border-primary' style="margin-right:30px;padding: 20px;">
+                            <div class='md-3 book border border-5 border-primary' style="margin-right:30px;padding: 20px;">
                                 <img src='/uploads/book_images/<?= ($book->bk_mainImgUrl) ?>'
                                      style="box-sizing: border-box;width:227px;height:338px">
                                 <ul class="book-title"><?= $book->bk_title; ?></ul>
