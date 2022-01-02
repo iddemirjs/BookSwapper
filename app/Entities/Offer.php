@@ -11,5 +11,6 @@ class Offer extends Entity
         'of_creatorUserId',
         'of_targetUserId',
         'of_description',
+        'of_status'
     ];
 }
