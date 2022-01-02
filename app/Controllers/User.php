@@ -5,8 +5,7 @@ namespace App\Controllers;
 use App\Entities\User as UserEntity;
 use App\Models\UserModel;
 use CodeIgniter\Model;
-
-define ('img_upload_dir', realpath(dirname('user_images')));
+use function PHPUnit\Framework\equalTo;
 
 class User extends BaseController
 {
@@ -109,18 +108,20 @@ class User extends BaseController
     }
     public function create()
     {
+        define ('img_upload_dir', realpath(dirname('user_images')));
         $validation = \Config\Services::validation();
 
         if ($validation->run($this->request->getPost(), 'validUserNew')) {
             $data = $this->request->getPost();
             $user = new UserEntity();
             $user->fill($data);
-            var_dump($data);
 
-            $imageName = time() . $data['usr_img_url'];
+            $imageName = time() . $_FILES['usr_img_url']['name'];
             $target =  img_upload_dir . '\uploads\user_images\\' . $imageName;
-            var_dump($_FILES);
-            var_dump(move_uploaded_file($data['usr_img_url'], $target));
+
+            $user->usr_img_url = $imageName;
+
+            move_uploaded_file($_FILES['usr_img_url']['tmp_name'], $target);
 
             $userModel = new UserModel();
             $userModel->save($user);

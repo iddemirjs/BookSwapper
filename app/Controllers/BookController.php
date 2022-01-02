@@ -4,10 +4,13 @@ namespace App\Controllers;
 use App\Entities\Book;
 use App\Entities\User as UserEntity;
 use App\Entities\Book as BookEntity;
+use App\Models\AuthorModel;
 use App\Models\BookModel;
 use App\Models\UserModel;
 use CodeIgniter\Model;
 use phpDocumentor\Reflection\Types\ClassString;
+
+define ('img_upload_dir', realpath(dirname('user_images')));
 
 class BookController extends BaseController
 {
@@ -37,6 +40,11 @@ class BookController extends BaseController
         ]);
     }
 
+    public function bookAdd(){
+        $data['authors'] = Model('AuthorModel')->findAll();
+        return view('bookadding', $data);
+    }
+
     public function view_details($bookId)
     {
         $bookModel = new BookModel();
@@ -49,17 +57,35 @@ class BookController extends BaseController
     public function create()
     {
         $validation =  \Config\Services::validation();
+        $data = $this->request->getPost();
+        // Author ad soyad alınınca burdan id çekiyorduk.
+//        $str_split = explode(" ", $data['bk_author']);
+//        $authorName = $str_split[0];
+//        $authorSurname = $str_split[1];
+//
+//        $condition = 'auth_name=\''.$authorName.'\' AND auth_surname=\''.$authorSurname.'\'';
+//        $db = db_connect();
+//        $data['bk_authorId'] = $db->query('SELECT auth_id FROM tbl_author WHERE '. $condition)->getResultArray();
+//        $data['bk_authorId'] = $data['bk_authorId'][0]['auth_id'];
 
-        if ($validation->run($this->request->getPost(),'validBookNew')) {
-            $data = $this->request->getPost();
+        if ($validation->run($data,'validBookNew')) {
+            $data['bk_ownerId'] = session()->get('user')['usr_id'];
             $book = new BookEntity();
             $book->fill($data);
+
+            $imageName = time() . $_FILES['bk_mainImgUrl']['name'];
+            $target =  img_upload_dir . '\uploads\book_images\\' . $imageName;
+
+            $book->bk_mainImgUrl = $imageName;
+
+            move_uploaded_file($_FILES['bk_mainImgUrl']['tmp_name'], $target);
+
             $bookModel = new BookModel();
             $bookModel->save($book);
-            return view('main');
+            //return view('main');
         }else {
-            $this->alert_function($validation->getErrors());
-            return view('main');
+            var_dump($validation->getErrors());
+            //return view('bookadding');
         }
     }
 

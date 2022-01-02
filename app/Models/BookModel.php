@@ -29,5 +29,5 @@ class BookModel extends Model
     protected $skipValidation= false;
     protected $allowCallbacks= true;
     protected $returnType    = Book::class;
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
 }
