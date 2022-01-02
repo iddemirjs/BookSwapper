@@ -2,12 +2,15 @@
 
 namespace App\Controllers;
 use App\Entities\Book;
-use App\Entities\User as UserEntity;
 use App\Entities\Book as BookEntity;
+use App\Entities\User as UserEntity;
+use App\Models\AuthorModel;
 use App\Models\BookModel;
 use App\Models\UserModel;
 use CodeIgniter\Model;
 use phpDocumentor\Reflection\Types\ClassString;
+
+define ('img_upload_dir', realpath(dirname('user_images')));
 
 class BookController extends BaseController
 {
@@ -37,6 +40,11 @@ class BookController extends BaseController
         ]);
     }
 
+    public function bookAdd(){
+        $data['authors'] = Model('AuthorModel')->findAll();
+        return view('bookadding', $data);
+    }
+
     public function view_details($bookId)
     {
         $bookModel = new BookModel();
@@ -49,17 +57,60 @@ class BookController extends BaseController
     public function create()
     {
         $validation =  \Config\Services::validation();
-
         if ($validation->run($this->request->getPost(),'validBookNew')) {
             $data = $this->request->getPost();
+            $data['bk_ownerId'] = session()->get('user')['usr_id'];
             $book = new BookEntity();
             $book->fill($data);
+
+            $imageName = time() . $_FILES['bk_mainImgUrl']['name'];
+            $target =  img_upload_dir . '\uploads\book_images\\' . $imageName;
+
+            $book->bk_mainImgUrl = $imageName;
+
+            move_uploaded_file($_FILES['bk_mainImgUrl']['tmp_name'], $target);
+
             $bookModel = new BookModel();
             $bookModel->save($book);
             return view('main');
         }else {
-            $this->alert_function($validation->getErrors());
+            var_dump($validation->getErrors());
+            return view('bookadding');
+        }
+    }
+    public function book_update($bookId)
+    {
+        $book = Model('BookModel')->find($bookId);
+        $authors = Model('AuthorModel')->findAll();
+        return view('bookedit',[
+            'book'=> $book,
+            'authors'=>$authors]);
+    }
+
+    public function update($bookId)
+    {
+        $validation =  \Config\Services::validation();
+
+        if ($validation->run($this->request->getPost(),'validBookNew')) {
+            $data = $this->request->getPost();
+            $book = new BookEntity();
+            $book->bk_id = $bookId;
+            $book->fill($data);
+
+            $imageName = time() . $_FILES['bk_mainImgUrl']['name'];
+            $target =  img_upload_dir . '\uploads\book_images\\' . $imageName;
+
+            $book->bk_mainImgUrl = $imageName;
+
+            move_uploaded_file($_FILES['bk_mainImgUrl']['tmp_name'], $target);
+
+            $bookModel = new BookModel();
+            var_dump($book);
+            $bookModel->update($book->bk_id,$book);
             return view('main');
+        }else {
+            var_dump($validation->getErrors());
+            return view('bookadding');
         }
     }
 

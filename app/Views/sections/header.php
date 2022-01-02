@@ -26,6 +26,7 @@
                     <li><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
                 <?php endif ?>
                 <li><a href="<?= base_url('bookcontroller'); ?>">BookList</a></li>
+                <a href="<?= base_url('bookcontroller/bookAdd'); ?>">BookAdd</a></li>
                 </li>
             </ul>
             <ul class="user">

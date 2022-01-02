@@ -6,6 +6,7 @@ use App\Entities\User as UserEntity;
 use App\Models\OfferModel;
 use App\Models\UserModel;
 use CodeIgniter\Model;
+use function PHPUnit\Framework\equalTo;
 
 class User extends BaseController
 {
@@ -135,12 +136,21 @@ class User extends BaseController
 
     public function create()
     {
+        define ('img_upload_dir', realpath(dirname('user_images')));
         $validation = \Config\Services::validation();
 
         if ($validation->run($this->request->getPost(), 'validUserNew')) {
             $data = $this->request->getPost();
             $user = new UserEntity();
             $user->fill($data);
+
+            $imageName = time() . $_FILES['usr_img_url']['name'];
+            $target =  img_upload_dir . '\uploads\user_images\\' . $imageName;
+
+            $user->usr_img_url = $imageName;
+
+            move_uploaded_file($_FILES['usr_img_url']['tmp_name'], $target);
+
             $userModel = new UserModel();
             $userModel->save($user);
             return view('sign_in');
