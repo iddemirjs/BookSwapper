@@ -46,6 +46,8 @@ $routes->get('dashboard/delete_book/(:num)', 'Dashboard::delete_book/$1');
 $routes->get('dashboard/update_book/(:num)', 'Dashboard::update_book/$1');
 $routes->get('offer/make/(:num)', 'OfferController::make/$1');
 $routes->post('offer/create', 'OfferController::create');
+$routes->get('offer/reject/(:num)', 'OfferController::reject/$1');
+$routes->get('offer/accept/(:num)', 'OfferController::accept/$1');
 $routes->get('book/(:num)', 'BookController::getBookById/$1');
 $routes->get('profile/(:num)', 'User::profile/$1');
 

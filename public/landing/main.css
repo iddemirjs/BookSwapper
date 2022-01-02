@@ -2282,4 +2282,7 @@ paper-dropdown-menu {
 .addBookToList:hover{
     cursor: pointer;
 }
+.deleterBook:hover{
+    cursor: pointer;
+}
 /*End Make Offer*/
