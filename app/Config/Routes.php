@@ -45,6 +45,10 @@ $routes->get('dashboard/update_category/(:num)', 'Dashboard::update_category/$1'
 $routes->get('dashboard/delete_book/(:num)', 'Dashboard::delete_book/$1');
 $routes->get('dashboard/update_book/(:num)', 'Dashboard::update_book/$1');
 $routes->get('offer/make/(:num)', 'OfferController::make/$1');
+$routes->post('offer/create', 'OfferController::create');
+$routes->get('book/(:num)', 'BookController::getBookById/$1');
+$routes->get('profile/(:num)', 'User::profile/$1');
+
 
 /*
  * --------------------------------------------------------------------

@@ -28,11 +28,11 @@
     </div>
 </div>
 <div class="container sm-12" id="booklistcontainer">
-    <div class="booklist">
+    <div class="row">
         <?php $bcount = count($books) ?>
         <?php for ($b_index = 0; $b_index < $bcount; $b_index++): $book = $books[$b_index] ?>
-            <div class="card col-4" style="padding: 0px 0px;">
-                <img src="<?= isset($book->bk_mainImgUrl)?'https://picsum.photos/768':$book->bk_mainImgUrl; ?>" alt="Card example image">
+            <div class="card col-4 md-4" style="padding: 0px 0px;">
+                <img src="<?= ($book->bk_mainImgUrl === null)?'https://picsum.photos/768':'/uploads/book_images/'.$book->bk_mainImgUrl; ?>" alt="Card example image">
 
                 <div class="card-body">
                     <h4 class="card-title"><?= $book->bk_title; ?> EN: <?= $book->bk_editionNumber; ?></h4>
