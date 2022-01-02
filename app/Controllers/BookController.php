@@ -78,7 +78,7 @@ class BookController extends BaseController
             return view('bookadding');
         }
     }
-    public function bUPtest($bookId)
+    public function book_update($bookId)
     {
         $book = Model('BookModel')->find($bookId);
         $authors = Model('AuthorModel')->findAll();
