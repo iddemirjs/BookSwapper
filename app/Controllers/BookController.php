@@ -57,18 +57,7 @@ class BookController extends BaseController
     public function create()
     {
         $validation =  \Config\Services::validation();
-        $data = $this->request->getPost();
-        // Author ad soyad alınınca burdan id çekiyorduk.
-//        $str_split = explode(" ", $data['bk_author']);
-//        $authorName = $str_split[0];
-//        $authorSurname = $str_split[1];
-//
-//        $condition = 'auth_name=\''.$authorName.'\' AND auth_surname=\''.$authorSurname.'\'';
-//        $db = db_connect();
-//        $data['bk_authorId'] = $db->query('SELECT auth_id FROM tbl_author WHERE '. $condition)->getResultArray();
-//        $data['bk_authorId'] = $data['bk_authorId'][0]['auth_id'];
-
-        if ($validation->run($data,'validBookNew')) {
+        if ($validation->run($this->request->getPost(),'validBookNew')) {
             $data['bk_ownerId'] = session()->get('user')['usr_id'];
             $book = new BookEntity();
             $book->fill($data);
@@ -82,10 +71,10 @@ class BookController extends BaseController
 
             $bookModel = new BookModel();
             $bookModel->save($book);
-            //return view('main');
+            return view('main');
         }else {
             var_dump($validation->getErrors());
-            //return view('bookadding');
+            return view('bookadding');
         }
     }
 

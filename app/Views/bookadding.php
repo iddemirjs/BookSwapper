@@ -22,15 +22,15 @@
                     <input type="text" placeholder="Enter Book Title" name="bk_title" required>
                 </div>
 
-                <!-- Dropdown çalışmıyor, auth_id alınmıyor. -->
-<!--                <div class="form-inline">-->
-<!--                    <label for="paperSelects1" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;"> Author: </label>-->
-<!--                    <select id="paperSelects1">-->
-<!--                        --><?php //foreach ($authors as $key => $author): ?>
-<!--                            <option value="--><?//= $author->auth_id; ?><!--">--><?//= $author->auth_name . ' ' . $author->auth_surname;; ?><!--</option>-->
-<!--                        --><?php //endforeach ?>
-<!--                    </select>-->
-<!--                </div>-->
+                                <div class="form-inline">
+                                    <label for="paperSelects1" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;"> Author: </label>
+                                    <select id="paperSelects1" name="bk_authorId">
+                                        <?php foreach ($authors as $key => $author): ?>
+                                            <option value="<?= $author->auth_id; ?>"><?= $author->auth_name . ' ' . $author->auth_surname;; ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+
 
                 <div class="form-group sm-6" style="padding-left: 5px">
                     <label for="bk_editionNumber"><b>Book Edition Number</b></label>
