@@ -7,43 +7,46 @@
             <span id="alertMessage"></span>
         </div>
 
-        <div class="row sm-6" style="display:flex;padding:10px 20px;flex: 1;">
-            <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="usr_username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="usr_username" value="<?=$user['usr_username']?>" required>
-            </div>
+        <div class="row">
+            <div class="row sm-6" style="display:flex;padding:10px 20px;flex: 1;">
+                <div class="form-group sm-6" style="padding-left: 5px">
+                    <label for="usr_username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="usr_username" value="<?=$user['usr_username']?>" required>
+                </div>
 
-            <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="usr_mail"><b>Email</b></label>
-                <input type="email" placeholder="Enter Email" name="usr_mail" value="<?=$user['usr_mail']?>" required>
-            </div>
+                <div class="form-group sm-6" style="padding-left: 5px">
+                    <label for="usr_mail"><b>Email</b></label>
+                    <input type="email" placeholder="Enter Email" name="usr_mail" value="<?=$user['usr_mail']?>" required>
+                </div>
 
-            <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="usr_name"><b>Name</b></label>
-                <input type="text" placeholder="Enter Name" name="usr_name" value="<?=$user['usr_name']?>" required>
-            </div>
+                <div class="form-group sm-6" style="padding-left: 5px">
+                    <label for="usr_name"><b>Name</b></label>
+                    <input type="text" placeholder="Enter Name" name="usr_name" value="<?=$user['usr_name']?>" required>
+                </div>
 
-            <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="usr_surname"><b>Surname</b></label>
-                <input type="text" placeholder="Enter Surname" name="usr_surname" value="<?=$user['usr_surname']?>" required>
-            </div>
+                <div class="form-group sm-6" style="padding-left: 5px">
+                    <label for="usr_surname"><b>Surname</b></label>
+                    <input type="text" placeholder="Enter Surname" name="usr_surname" value="<?=$user['usr_surname']?>" required>
+                </div>
 
-            <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="usr_password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="usr_password" required>
-            </div>
+                <div class="form-group sm-6" style="padding-left: 5px">
+                    <label for="usr_password"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="usr_password" required>
+                </div>
 
-            <div class="form-group sm-6" style="padding-left: 5px">
-                <label for="usr_passwordAgain"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password Again" name="usr_passwordAgain" required>
+                <div class="form-group sm-6" style="padding-left: 5px">
+                    <label for="usr_passwordAgain"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password Again" name="usr_passwordAgain" required>
+                </div>
+
+            </div>
+            <div class="form-group text-center sm-6">
+                <img src="/uploads/user_images/<?=$user['usr_img_url']?>" style="min-height: 350px;" onclick="triggerClick()" class="border border-5 border-primary" id="imageDisplay">
+                <label for="usr_img_url">Image</label>
+                <input type="file" name="usr_img_url" onchange="displayImage(this)" id="usr_img_url" style="display: none">
             </div>
         </div>
 
-        <div class="form-group text-center sm-6">
-            <img src="https://coldtimemuhendislik.com/wp-content/uploads/2020/06/default-placeholder.png" onclick="triggerClick()" id="imageDisplay">
-            <label for="usr_img_url">Image</label>
-            <input type="file" name="usr_img_url" onchange="displayImage(this)" id="usr_img_url" style="display: none">
-        </div>
 
         <div class="sm-6" style="display: flex;align-items: end;flex-direction: row-reverse;">
             <button type="submit" name="save-user" class="btn-outline-primary">SignUp</button>
@@ -69,12 +72,7 @@
 </script>
 
 <style>
-    #imageDisplay{
-        display: block;
-        width: 60%;
-        margin: 10px auto;
-        border-radius: 50%;
-    }
+
 </style>
 
 <?= view('sections/footer') ?>

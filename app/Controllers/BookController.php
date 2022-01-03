@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Entities\Book;
 use App\Entities\Book as BookEntity;
 use App\Entities\User as UserEntity;
@@ -12,7 +13,7 @@ use App\Models\UserModel;
 use CodeIgniter\Model;
 use phpDocumentor\Reflection\Types\ClassString;
 
-define ('img_upload_dir', realpath(dirname('user_images')));
+define('img_upload_dir', realpath(dirname('user_images')));
 
 class BookController extends BaseController
 {
@@ -22,10 +23,10 @@ class BookController extends BaseController
         $authors = $author_model->findAll();
         $categories = model('CategoryModel')->findAll();
         $results_per_page = 9;
-      
+
         $book_model = model('BookModel');
         $page_books['books'] = $book_model->paginate($results_per_page);
-      
+
         for ($i = 0; $i < count($page_books['books']); $i++) {
             $id = $page_books['books'][$i]->bk_id;
             $page_books['books_categories'][$i] = $this->get_categories($id);
@@ -42,7 +43,8 @@ class BookController extends BaseController
         ]);
     }
 
-    public function bookAdd(){
+    public function bookAdd()
+    {
         $data['authors'] = Model('AuthorModel')->findAll();
         $data['categories'] = (new CategoryModel())->findAll();
         return view('bookadding', $data);
@@ -59,15 +61,15 @@ class BookController extends BaseController
 
     public function create()
     {
-        $validation =  \Config\Services::validation();
-        if ($validation->run($this->request->getPost(),'validBookNew')) {
+        $validation = \Config\Services::validation();
+        if ($validation->run($this->request->getPost(), 'validBookNew')) {
             $data = $this->request->getPost();
             $data['bk_ownerId'] = session()->get('user')['usr_id'];
             $book = new BookEntity();
             $book->fill($data);
-            
+
             $imageName = time() . $_FILES['bk_mainImgUrl']['name'];
-            $target =  img_upload_dir . '/uploads/book_images/' . $imageName;
+            $target = img_upload_dir . '/uploads/book_images/' . $imageName;
 
             $book->bk_mainImgUrl = $imageName;
 
@@ -77,47 +79,70 @@ class BookController extends BaseController
             $bookModel->save($book);
             $bookId = $bookModel->getInsertID();
             $tbl_categories = [];
-            foreach ($data['category'] as $cat_id){
-                $tbl_categories[] = ['bc_bookId'=>$bookId,'bc_catId'=>$cat_id];
+            foreach ($data['category'] as $cat_id) {
+                $tbl_categories[] = ['bc_bookId' => $bookId, 'bc_catId' => $cat_id];
             }
             $bookCategoryModel = new BookCategoryModel();
             $bookCategoryModel->insertBatch($tbl_categories);
-            return redirect()->to('profile/'.session()->get('user')['usr_id']);
-        }else {
+            return redirect()->to('profile/' . session()->get('user')['usr_id']);
+        } else {
             var_dump($validation->getErrors());
             return view('bookadding');
         }
     }
+
     public function book_update($bookId)
     {
         $book = Model('BookModel')->find($bookId);
         $authors = Model('AuthorModel')->findAll();
-        return view('bookedit',[
-            'book'=> $book,
-            'authors'=>$authors]);
+        $bookCategories = (new BookCategoryModel())->where(['bc_bookId' => $bookId])->findAll();
+        $allCategories = (new CategoryModel())->findAll();
+        $bookCategoriesIds = [];
+        foreach ($bookCategories as $cats) {
+            $bookCategoriesIds[] = $cats['bc_catId'];
+        }
+
+        return view('bookedit', [
+            'book' => $book,
+            'authors' => $authors,
+            'allCategories' => $allCategories,
+            'bookCategories' => $bookCategories,
+            'bookCatIds' => $bookCategoriesIds
+        ]);
     }
 
     public function update($bookId)
     {
-        $validation =  \Config\Services::validation();
+        $validation = \Config\Services::validation();
 
-        if ($validation->run($this->request->getPost(),'validBookNew')) {
+        if ($validation->run($this->request->getPost(), 'validBookNew')) {
             $data = $this->request->getPost();
             $book = new BookEntity();
             $book->bk_id = $bookId;
             $book->fill($data);
 
+
             $imageName = time() . $_FILES['bk_mainImgUrl']['name'];
-            $target =  img_upload_dir . '/uploads/book_images/' . $imageName;
+            $target = img_upload_dir . '/uploads/book_images/' . $imageName;
 
             $book->bk_mainImgUrl = $imageName;
 
             move_uploaded_file($_FILES['bk_mainImgUrl']['tmp_name'], $target);
 
             $bookModel = new BookModel();
-            $bookModel->update($book->bk_id,$book);
+            $bookModel->update($book->bk_id, $book);
+
+            $bookCategoryModel = new BookCategoryModel();
+            $bookCategoryModel->where(['bc_bookId' => $book->bk_id])->delete();
+            $bookId = $book->bk_id;
+            $tbl_categories = [];
+            foreach ($data['category'] as $cat_id) {
+                $tbl_categories[] = ['bc_bookId' => $bookId, 'bc_catId' => $cat_id];
+            }
+            $bookCategoryModel->insertBatch($tbl_categories);
+
             return view('main');
-        }else {
+        } else {
             var_dump($validation->getErrors());
             return view('bookadding');
         }
@@ -238,7 +263,7 @@ class BookController extends BaseController
             ->findAll();
         $user_books['book_model'] = $book_model;
         $user_books['books_categories'] = null;
-      
+
         for ($i = 0; $i < count($user_books['books']); $i++) {
             $id = $user_books['books'][$i]->bk_id;
             $user_books['books_categories'][$i] = $this->get_categories($id);
@@ -249,11 +274,11 @@ class BookController extends BaseController
     public function getBookById($bookId)
     {
         $bookModel = new BookModel();
-        $book = $bookModel->where(['bk_id'=>$bookId])->find();
-        if (count($book) == 0){
+        $book = $bookModel->where(['bk_id' => $bookId])->find();
+        if (count($book) == 0) {
             return json_encode(['status' => false]);
-        }else{
-            return json_encode(['status' => true,'book'=>$book[0]]);
+        } else {
+            return json_encode(['status' => true, 'book' => $book[0]]);
         }
     }
 

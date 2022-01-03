@@ -31,12 +31,21 @@
     <div class="row">
         <?php $bcount = count($books) ?>
         <?php for ($b_index = 0; $b_index < $bcount; $b_index++): $book = $books[$b_index] ?>
+
             <div class="card col-4 md-4" style="padding: 0px 0px;">
                 <img src="<?= ($book->bk_mainImgUrl === null)?'https://picsum.photos/768':'/uploads/book_images/'.$book->bk_mainImgUrl; ?>" alt="Card example image">
 
                 <div class="card-body">
-                    <h4 class="card-title"><?= $book->bk_title; ?> EN: <?= $book->bk_editionNumber; ?></h4>
-                    <h5 class="card-subtitle"><?= $books_authors[$b_index]->auth_name; ?> <?= $books_authors[$b_index]->auth_surname; ?></h5>
+                    <h4 class="card-title">
+                        <a href="/bookcontroller/view_details/<?= $book->bk_id; ?>" style="display: contents">
+                            <?= $book->bk_title; ?> EN: <?= $book->bk_editionNumber; ?>
+                        </a>
+                    </h4>
+                    <h5 class="card-subtitle">
+                        <a href="/authorcontroller/view_author/<?= $books_authors[$b_index]->auth_id; ?>">
+                        <?= $books_authors[$b_index]->auth_name; ?> <?= $books_authors[$b_index]->auth_surname; ?>
+                        </a>
+                    </h5>
                     <p class="card-text">
                     <ul class="book-category" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;">
                         Categories:

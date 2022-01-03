@@ -2,15 +2,15 @@
 <div class="author-container">
     <h2 style="margin-left: 100px">Author</h2>
     <div class="row">
-        <div class="author-details container" style="margin-left: 100px;flex: border-box">
+        <div class="author-details container sm-12" style="margin-left: 100px;flex: border-box">
             <h3 class="author-name-surname"><?= $author->auth_name; ?> <?= $author->auth_surname; ?></h3>
             <div class="text-sm"><?= ($author->auth_description) ?> </div>
         </div>
-        <div class="author_book_list" >
+        <div class=" sm-12 author_book_list" >
             <?php $bcount = count($author_books)?>
             <?php for($b_index= 0;$b_index<$bcount;$b_index++): $book = $author_books[$b_index]?>
                 <a class="paper-btn margin" style="width: 290px" href="/bookcontroller/view_details/<?= $book->bk_id; ?>">
-                    <img src='<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box;width:255px;height:320px">
+                    <img src='/uploads/book_images/<?= ($book->bk_mainImgUrl) ?>' style="box-sizing: border-box;width:255px;height:320px">
                     <ul class="book-title"><?= $book->bk_title; ?></ul>
                     <ul class="book-author">Author:
                         <?=$author->auth_name;?> <?=$author->auth_surname;?></ul>

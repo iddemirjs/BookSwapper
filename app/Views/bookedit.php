@@ -7,7 +7,7 @@
       href="https://raw-dot-custom-elements.appspot.com/PolymerElements/paper-dropdown-menu/v2.0.0/paper-dropdown-menu/../paper-listbox/paper-listbox.html">
 
 <?= view('sections/header') ?>
-<h1 class="article-title text-center background-success" style="margin:0 0 30px 0;padding: .80rem 0; ">Add your book</h1>
+<h1 class="article-title text-center background-success" style="margin:0 0 30px 0;padding: .80rem 0; ">Update your book</h1>
 <div class="container" style="display:flex;height: min-content">
     <form action="../update/<?=$book->bk_id?>" method="POST" enctype="multipart/form-data" class="row" style="display:table-row;padding:10px 20px;flex: 1;">
         <!-- Error Warning -->
@@ -27,11 +27,21 @@
                     <label for="paperSelects1" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;"> Author: </label>
                     <select id="paperSelects1" name="bk_authorId" style="width: 100%;">
                         <?php foreach ($authors as $key => $author): ?>
-                            <option value="<?= $author->auth_id; ?>"><?= $author->auth_name . ' ' . $author->auth_surname;; ?></option>
+                            <option <?= ($author->auth_id == $book->bk_authorId)?'selected=selected':''; ?> value="<?= $author->auth_id; ?>"><?= $author->auth_name . ' ' . $author->auth_surname;; ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
 
+                <div class="form-group sm-6">
+                    <label for="paperSelects1" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;">
+                        Author: </label>
+                    <select id="paperSelects1" multiple="multiple" name="category[]" style="width: 100%;height: 150px;">
+                        <?php foreach ($allCategories as $key => $category): ?>
+                            <option <?= (in_array($category->cat_id,$bookCatIds))?'selected=selected':''; ?>
+                                    value="<?= $category->cat_id; ?>"><?= $category->cat_name; ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
 
                 <div class="form-group sm-4" style="padding-left: 5px">
                     <label for="bk_editionNumber"><b>Book Edition Number</b></label>
@@ -45,7 +55,8 @@
                 <div class="form-group text-center sm-6">
                     <label for="bk_mainImgUrl"><b>Book Image</b></label>
                     <!-- Kitap Placeholder'ı -->
-                    <img src="/uploads/book_images/<?= ($book->bk_mainImgUrl)?$book->bk_mainImgUrl:'book.png'; ?>" onclick="triggerClick()" id="imageDisplay">
+                    <img src="/uploads/book_images/<?= ($book->bk_mainImgUrl)?$book->bk_mainImgUrl:'book.png'; ?>" onclick="triggerClick()" id="imageDisplay"
+                         style="min-height: 300px">
                     <label for="bk_mainImgUrl">Image</label>
                     <input type="file" name="bk_mainImgUrl" onchange="displayImage(this)" id="bk_mainImgUrl" style="display: none">
                 </div>

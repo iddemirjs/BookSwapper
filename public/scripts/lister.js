@@ -99,8 +99,7 @@ $(document).ready(function () {
     });
     $('.editProfile').on('click',function (events) {
        let userId = $(this).data('id');
-
-       alert(userId);
+       window.location = '/user/go_update_user';
     });
 });
 

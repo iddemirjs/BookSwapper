@@ -8,6 +8,7 @@ use App\Entities\User;
 use App\Models\AuthorModel;
 use App\Models\BookModel;
 use App\Models\CategoryModel;
+use App\Models\OfferModel;
 use App\Models\UserModel;
 
 class Dashboard extends BaseController
@@ -21,7 +22,20 @@ class Dashboard extends BaseController
 
     public function index()
     {
-        return view('dashboard_sections/contents/vw_dash_main');
+        $userSize = count((new UserModel())->findAll());
+        $offerSize = count((new OfferModel())->findAll());
+        $bookSize = count((new BookModel())->findAll());
+        $offer = (new OfferModel())->select('CONCAT(t.usr_name," ",t.usr_surname) as targetName')->
+        select('CONCAT(o.usr_name," ",o.usr_surname) as ownerName')->
+        select('tbl_offer.*')->
+        join('tbl_user as t', 't.usr_id=of_targetUserId')->
+        join('tbl_user as o', 'o.usr_id=of_creatorUserId')->findAll();
+        return view('dashboard_sections/contents/vw_dash_main',[
+            'bookSize'=>$bookSize,
+            'offerSize'=>$offerSize,
+            'offers'=>$offer,
+            'userSize'=>$userSize
+        ]);
     }
 
     public function records()

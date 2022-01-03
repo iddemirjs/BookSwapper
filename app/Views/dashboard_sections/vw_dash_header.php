@@ -197,9 +197,9 @@
                                 </li>
                                 <li role="separator" class="divider"></li>
                                 <li>
-                                    <a class="text-color" href="logout.html">
+                                    <a class="text-color" href="/user/logout">
                                         <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
-                                        <span>Home</span>
+                                        <span>Exit</span>
                                     </a>
                                 </li>
                             </ul>
@@ -214,22 +214,9 @@
         <div class="menubar-scroll-inner">
             <ul class="app-menu">
                 <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="/dashboard" class="">
                         <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
                         <span class="menu-text">Dashboards</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="index.html"><span class="menu-text">Dashboard 1</span></a></li>
-                        <li><a href="dashboard.2.html"><span class="menu-text">Dashboard 2</span></a></li>
-                        <li><a href="dashboard.3.html"><span class="menu-text">Dashboard 3</span></a></li>
-                    </ul>
-                </li>
-
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
-                        <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
-                        <span class="menu-text">Authors</span>
                     </a>
                 </li>
 
@@ -244,13 +231,6 @@
                     <a href="/dashboard/records">
                         <i class="menu-icon zmdi zmdi-inbox zmdi-hc-lg"></i>
                         <span class="menu-text">Observe Records</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="search.web.html">
-                        <i class="menu-icon zmdi zmdi-search zmdi-hc-lg"></i>
-                        <span class="menu-text">Offers</span>
                     </a>
                 </li>
             </ul><!-- .app-menu -->
