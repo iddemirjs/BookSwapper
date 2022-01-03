@@ -2,9 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Entities\Author;
 use App\Entities\User as UserEntity;
-use App\Models\AuthorModel;
+use App\Models\OfferModel;
 use App\Models\UserModel;
 use CodeIgniter\Model;
 use function PHPUnit\Framework\equalTo;
@@ -25,30 +24,59 @@ class User extends BaseController
             'user' => $user,
             'books' => $user_books['books'],
             'books_categories' => $user_books['books_categories'],
-            'books_authors'=>$user_books['books_authors'],
-            'received_offers'=>$user_offers['received_offers'],
-            'send_offers' =>$user_offers['send_offers']
+            'books_authors' => $user_books['books_authors'],
+            'received_offers' => $user_offers['received_offers'],
+            'send_offers' => $user_offers['send_offers']
         ]);
     }
 
     public function profile($userId = -1)
     {
+        $offerModel = new OfferModel();
         $user = Model('UserModel')->find($userId);
         if (!$user) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        $waitingOffers = $offerModel->select('CONCAT(t.usr_name," ",t.usr_surname) as targetName')->
+        select('CONCAT(o.usr_name," ",o.usr_surname) as ownerName')->
+        select('tbl_offer.*')->
+        join('tbl_user as t', 't.usr_id=of_targetUserId')->
+        join('tbl_user as o', 'o.usr_id=of_creatorUserId')->
+        where(['of_status' => 0, 'of_targetUserId' => $userId])->findAll();
+        $acceptedOffers = $offerModel->select('CONCAT(t.usr_name," ",t.usr_surname) as targetName')->
+        select('CONCAT(o.usr_name," ",o.usr_surname) as ownerName')->
+        select('tbl_offer.*')->
+        join('tbl_user as t', 't.usr_id=of_targetUserId')->
+        join('tbl_user as o', 'o.usr_id=of_creatorUserId')->
+        where(['of_status' => 1, 'of_targetUserId' => $userId])->findAll();
+        $rejectedOffers = $offerModel->select('CONCAT(t.usr_name," ",t.usr_surname) as targetName')->
+        select('CONCAT(o.usr_name," ",o.usr_surname) as ownerName')->
+        select('tbl_offer.*')->
+        join('tbl_user as t', 't.usr_id=of_targetUserId')->
+        join('tbl_user as o', 'o.usr_id=of_creatorUserId')->
+        where(['of_status' => 2, 'of_targetUserId' => $userId])->findAll();
+        $sentOffers = $offerModel->
+        select('CONCAT(t.usr_name," ",t.usr_surname) as targetName')->
+        select('CONCAT(o.usr_name," ",o.usr_surname) as ownerName')->
+        select('tbl_offer.*')->
+        join('tbl_user as t', 't.usr_id=of_targetUserId')->
+        join('tbl_user as o', 'o.usr_id=of_creatorUserId')->
+        where(['of_creatorUserId' => $userId])->findAll();
+
         $user_books = $this->get_user_books_details($userId);
-        $user_offers = $this->get_user_offers_details($userId);
 
         return view('profilePaper', [
             'user' => $user,
             'books' => $user_books['books'],
-            'books_categories'=>$user_books['books_categories'],
-            'books_authors'=>$user_books['books_authors'],
-            'received_offers'=>$user_offers['received_offers'],
-            'send_offers' =>$user_offers['send_offers']
+            'books_categories' => $user_books['books_categories'],
+            'books_authors' => $user_books['books_authors'],
+            'sentOffers' => $sentOffers,
+            'rejectedOffers' => $rejectedOffers,
+            'acceptedOffers' => $acceptedOffers,
+            'waitingOffers' => $waitingOffers,
         ]);
     }
+
     public function view_profile($userId = -1)
     {
         $user = Model('UserModel')->find($userId);
@@ -61,10 +89,10 @@ class User extends BaseController
         return view('profile', [
             'user' => $user,
             'books' => $user_books['books'],
-            'books_categories'=>$user_books['books_categories'],
-            'books_authors'=>$user_books['books_authors'],
-            'received_offers'=>$user_offers['received_offers'],
-            'send_offers' =>$user_offers['send_offers']
+            'books_categories' => $user_books['books_categories'],
+            'books_authors' => $user_books['books_authors'],
+            'received_offers' => $user_offers['received_offers'],
+            'send_offers' => $user_offers['send_offers']
         ]);
     }
 
@@ -87,19 +115,16 @@ class User extends BaseController
         $cat_offers['Accepted'] = [];
         $cat_offers['Rejected'] = [];
         foreach ($offers as $offer) {
-            if($offer->of_status == 0)
-            {
+            if ($offer->of_status == 0) {
                 $cat_offers['Waiting'][] = $offer;
-            }
-            elseif($offer->of_status == 1)
-            {
+            } elseif ($offer->of_status == 1) {
                 $cat_offers['Accepted'][] = $offer;
-            }
-            else
+            } else
                 $cat_offers['Rejected'][] = $offer;
         }
         return $cat_offers;
     }
+
     private function get_user_offers_details($userId)
     {
         $offer_model = Model('OfferModel');
@@ -108,6 +133,7 @@ class User extends BaseController
         $user_offers['send_offers'] = $this->categorize_offers($offer_model->get_send_user_offers($userId));
         return $user_offers;
     }
+
     public function create()
     {
         define ('img_upload_dir', realpath(dirname('user_images')));
@@ -134,51 +160,6 @@ class User extends BaseController
         }
     }
 
-    public function go_update_user(){
-        $user = session()->get('user');
-        return view('user_edit', ['user'=>$user]);
-    }
-
-    public function update_user($id)
-    {
-        define ('img_upload_dir', realpath(dirname('user_images')));
-        $validation = \Config\Services::validation();
-
-        if ($validation->run($this->request->getPost(), 'validUserNew')) {
-            $data = $this->request->getPost();
-            $userModel = new UserModel();
-            $user = new \App\Entities\User();
-            $user->fill($data);
-
-            $imageName = time() . $_FILES['usr_img_url']['name'];
-            $target =  img_upload_dir . '\uploads\user_images\\' . $imageName;
-
-            $user->usr_img_url = $imageName;
-
-            move_uploaded_file($_FILES['usr_img_url']['tmp_name'], $target);
-            $userModel->update($id, $user);
-
-            $tmp = session()->get('user');
-
-
-            session()->set('user', [
-                'usr_username' => $user->usr_username,
-                'usr_name' => $user->usr_name,
-                'usr_surname' => $user->usr_surname,
-                'usr_mail' => $user->usr_mail,
-                'usr_img_url' => $user->usr_img_url,
-                'usr_id' => $tmp['usr_id'],
-                'usr_type' => $tmp['usr_type'],
-            ]);
-
-
-            return redirect()->to(base_url('user/go_update_user'));
-        } else {
-            $this->alert_function($validation->getErrors());
-            return redirect()->to(base_url('user/go_update_user'));
-        }
-    }
-
     public function login()
     {
         $validation = \Config\Services::validation();
@@ -191,7 +172,7 @@ class User extends BaseController
                     'usr_username' => $user->usr_username,
                     'usr_id' => $user->usr_id,
                     'usr_name' => $user->usr_name,
-                    'usr_surname' => $user->usr_surname,
+                    'usr_surname' => $user->usr_username,
                     'usr_mail' => $user->usr_mail,
                     'usr_type' => $user->usr_type,
                     'usr_img_url' => $user->usr_img_url,
@@ -248,7 +229,7 @@ class User extends BaseController
 
             $data = [
                 'img_name' => $imageFile->getClientName(),
-                'file'  => $imageFile->getClientMimeType()
+                'file' => $imageFile->getClientMimeType()
             ];
 
             $save = $builder->insert($data);

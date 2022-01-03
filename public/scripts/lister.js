@@ -62,11 +62,29 @@ $(document).ready(function () {
             if (count == 0) {
                 clearInterval(countdown);
                 window.open('/user', "_self");
-
             }
             count--;
         }, 1000);
     }
+    $(document).on('click','.deleterBook',function (event) {
+        let bookId = $(this).closest('li').data('id');
+        let willInsertedSelect = $(this).closest('.card-body').find('select');
+        $(this).closest('li').remove();
+        $.ajax({
+            url: '/book/'+bookId,
+            type: 'GET',
+            dataType: 'json',
+        }).done(function (data) {
+            console.log(data);
+            if (data.status){
+                willInsertedSelect.append(`<option value="${data.book.bk_id}">${data.book.bk_title} - EN : ${data.book.bk_editionNumber}</option>`);
+            }
+        }).fail(function (error) {
+            console.log(error);
+        }).always(function () {
+            console.log("complete");
+        });
+    });
 });
 
 function scrollDown() {
@@ -83,7 +101,7 @@ function convertListItem(book) {
                         <div style="width: calc( 100% - 50px)">
                             <h6>${book.bk_title}</h6>
                             <span class="border border-2 border-primary" style="padding: 2px 5px;">Edition : ${book.bk_editionNumber}</span>
-                            <span class="border border-2 border-primary" style="padding: 2px 5px;">Sil</span>
+                            <span class="border border-2 border-primary deleterBook" style="padding: 2px 5px;">Sil</span>
                         </div>
                         <img src="/uploads/book_images/${book.bk_mainImgUrl}" alt="Random Unsplash" style="height: 50px;">
                     </li>`;

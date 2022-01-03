@@ -13,14 +13,13 @@ class OfferModel extends Model
         'of_creatorUserId',
         'of_targetUserId',
         'of_description',
-
+        'of_status'
     ];
 
     protected $validationRules=[
         'of_creatorUserId' => 'required',
         'of_targetUserId' => 'required',
         'of_description' => 'required',
-
     ];
 
     protected $skipValidation= false;

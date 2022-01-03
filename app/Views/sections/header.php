@@ -33,7 +33,10 @@
             <ul class="user">
                 <?php if (session()->get('user')): ?>
                     <li><a class="button signin"
-                           href="<?= base_url('user'); ?>">Profile <?= session()->get('user')['usr_username']; ?></a>
+                           href="<?= base_url('profile/'.session()->get('user')['usr_id']); ?>">Profile <?= session()->get('user')['usr_username']; ?></a>
+                    </li>
+                    <li><a class="button signin"
+                           href="<?= base_url('user/logout'); ?>">Çıkış</a>
                     </li>
                 <?php else: ?>
                     <li><a class="button signin" href="<?= base_url('home/signIn'); ?>">Login</a></li>
