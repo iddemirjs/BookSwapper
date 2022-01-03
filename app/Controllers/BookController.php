@@ -5,7 +5,9 @@ use App\Entities\Book;
 use App\Entities\Book as BookEntity;
 use App\Entities\User as UserEntity;
 use App\Models\AuthorModel;
+use App\Models\BookCategoryModel;
 use App\Models\BookModel;
+use App\Models\CategoryModel;
 use App\Models\UserModel;
 use CodeIgniter\Model;
 use phpDocumentor\Reflection\Types\ClassString;
@@ -42,6 +44,7 @@ class BookController extends BaseController
 
     public function bookAdd(){
         $data['authors'] = Model('AuthorModel')->findAll();
+        $data['categories'] = (new CategoryModel())->findAll();
         return view('bookadding', $data);
     }
 
@@ -62,9 +65,9 @@ class BookController extends BaseController
             $data['bk_ownerId'] = session()->get('user')['usr_id'];
             $book = new BookEntity();
             $book->fill($data);
-
+            
             $imageName = time() . $_FILES['bk_mainImgUrl']['name'];
-            $target =  img_upload_dir . '\uploads\book_images\\' . $imageName;
+            $target =  img_upload_dir . '/uploads/book_images/' . $imageName;
 
             $book->bk_mainImgUrl = $imageName;
 
@@ -72,7 +75,14 @@ class BookController extends BaseController
 
             $bookModel = new BookModel();
             $bookModel->save($book);
-            return view('main');
+            $bookId = $bookModel->getInsertID();
+            $tbl_categories = [];
+            foreach ($data['category'] as $cat_id){
+                $tbl_categories[] = ['bc_bookId'=>$bookId,'bc_catId'=>$cat_id];
+            }
+            $bookCategoryModel = new BookCategoryModel();
+            $bookCategoryModel->insertBatch($tbl_categories);
+            return redirect()->to('profile/'.session()->get('user')['usr_id']);
         }else {
             var_dump($validation->getErrors());
             return view('bookadding');
@@ -196,7 +206,6 @@ class BookController extends BaseController
             $page_books['books_categories'][$i] = $this->get_categories($id);
             $page_books['books_authors'][$i] = $author_model->find($page_books['books'][$i]->bk_authorId);
         }
-
 
         return view('listbooks', [
             'books' => $page_books['books'],
