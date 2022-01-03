@@ -17,7 +17,7 @@
                     <span class="badge warning"
                           style="margin-left: 20px;"><?= 'Offers : ' . (count($rejectedOffers)+count($acceptedOffers) +count($waitingOffers)+ count($sentOffers)); ?></span>
                     <span class="badge danger" style="margin-left: 20px;"><?= 'Waiting Offers : ' . count($waitingOffers) ?></span>
-                    <span class="badge success" style="margin-left: 20px;"><?= 'Accepting Offers : ' . count($acceptedOffers) ?></span>
+                    <span class="badge success" style="margin-left: 20px;"><?= 'Accepted Offers : ' . count($acceptedOffers) ?></span>
                     <span class="badge danger" style="margin-left: 20px;"><?= 'Rejected Offers : ' . count($rejectedOffers) ?></span>
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <label class="badge warning" style="color: #ddd" for="tab2">Waiting Offers</label>
 
             <input id="tab3" type="radio" name="tabs">
-            <label class="badge success" style="color: #ddd" for="tab3">Accepting Offers</label>
+            <label class="badge success" style="color: #ddd" for="tab3">Accepted Offers</label>
 
             <input id="tab4" type="radio" name="tabs">
             <label class="badge danger" style="color: #ddd" for="tab4">Rejected Offers</label>
@@ -45,6 +45,7 @@
                 <table class="table-hover">
                     <thead>
                     <tr>
+                        <th>Details</th>
                         <th>#</th>
                         <th>OfferOwner</th>
                         <th>OfferTarget</th>
@@ -55,6 +56,7 @@
                     <tbody>
                     <?php foreach ($sentOffers as $sKey => $sentOffer): ?>
                         <tr>
+                            <td><button class="btn-secondary exploder"><img style="width: 8px;height: 8px;" src="https://pngset.com/images/search-magnifier-search-icon-no-background-magnifying-tape-transparent-png-96875.png" alt=""></button></td>
                             <td><?= $sentOffer->of_id; ?></td>
                             <td><?= $sentOffer->ownerName; ?></td>
                             <td><?= $sentOffer->targetName; ?></td>
@@ -67,6 +69,32 @@
                                     Rejected
                                 <?php endif ?></td>
                         </tr>
+                    <tr class="explode hide">
+                        <td colspan="6">
+                            <div class="row">
+                                <div class="md-6 text-center">
+                                    <h3>Give</h3>
+                                    <ul>
+                                        <?php foreach ($sentOffer->books as $sBookId => $sBook): ?>
+                                            <?php if ($sBook->line_currentUserId == $sentOffer->of_creatorUserId): ?>
+                                                <li><?= $sBook->bk_title; ?></li>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+                                    </ul>
+                                </div>
+                                <div class="md-6 text-center">
+                                    <h3>Take</h3>
+                                    <ul>
+                                        <?php foreach ($sentOffer->books as $sBookId => $sBook): ?>
+                                            <?php if ($sBook->line_currentUserId == $sentOffer->of_targetUserId): ?>
+                                                <li><?= $sBook->bk_title; ?></li>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                     <?php endforeach ?>
                     </tbody>
                 </table>

@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Entities\User as UserEntity;
+use App\Models\BookModel;
+use App\Models\OfferLineModel;
 use App\Models\OfferModel;
 use App\Models\UserModel;
 use CodeIgniter\Model;
@@ -66,6 +68,11 @@ class User extends BaseController
         join('tbl_user as o', 'o.usr_id=of_creatorUserId')->
         where(['of_creatorUserId' => $userId])->findAll();
 
+        foreach ($sentOffers as $sKey => $sentOffer){
+            $sentOffers[$sKey]->books = $this->getOfferBooks($sentOffer->of_id);
+        }
+
+
         $user_books = $this->get_user_books_details($userId);
 
         return view('profilePaper', [
@@ -78,6 +85,13 @@ class User extends BaseController
             'acceptedOffers' => $acceptedOffers,
             'waitingOffers' => $waitingOffers,
         ]);
+    }
+
+    public function getOfferBooks($offerId)
+    {
+        return (new OfferLineModel())->select('t.*')->select('tbl_offerLine.*')->
+        join('tbl_book as t','line_bookId=t.bk_id')->
+        where(['line_offerId'=>$offerId])->findAll();
     }
 
     public function view_profile($userId = -1)

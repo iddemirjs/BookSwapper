@@ -87,11 +87,13 @@ $(document).ready(function () {
     });
     $("#book_author").on('change',function (event) {
         let data = $(this).val();
-        window.location = "/bookcontroller/sort_by_author/"+data;
+        if (data)
+            window.location = "/bookcontroller/sort_by_author/"+data;
     });
     $("#book_categories").on('change',function (event) {
         let data = $(this).val();
-        window.location = "/bookcontroller/sort_by_category/"+data;
+        if (data)
+            window.location = "/bookcontroller/sort_by_category/"+data;
     });
     $(".editBook").on('click',function (event) {
        let bookId = $(this).data('bookid');
@@ -101,6 +103,23 @@ $(document).ready(function () {
        let userId = $(this).data('id');
        window.location = '/user/go_update_user';
     });
+
+    $(".exploder").click(function(){
+
+        $(this).toggleClass("btn-success btn-danger");
+
+        $(this).children("span").toggleClass("glyphicon-search glyphicon-zoom-out");
+
+        $(this).closest("tr").next("tr").toggleClass("hide");
+
+        if($(this).closest("tr").next("tr").hasClass("hide")){
+            $(this).closest("tr").next("tr").children("td").slideUp();
+        }
+        else{
+            $(this).closest("tr").next("tr").children("td").slideDown(350);
+        }
+    });
+
 });
 
 function scrollDown() {

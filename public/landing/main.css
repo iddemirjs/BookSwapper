@@ -2286,3 +2286,7 @@ paper-dropdown-menu {
     cursor: pointer;
 }
 /*End Make Offer*/
+
+.hide{
+    display: none;
+}
