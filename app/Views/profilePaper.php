@@ -10,9 +10,10 @@
                     <h3 style="margin-left: 20px;"><?= '@' . $user->usr_username . ' ~ ' . $user->usr_mail ?></h3>
                     <span class="badge primary" style="margin-left: 20px;"><?= 'Has Books : ' . count($books) ?></span>
                     <span class="badge warning"
-                          style="margin-left: 20px;"><?= 'Offers : ' . (count($received_offers) + count($send_offers)); ?></span>
-                    <span class="badge success" style="margin-left: 20px;"><?= 'Accepting Offers : ' . '5' ?></span>
-                    <span class="badge danger" style="margin-left: 20px;"><?= 'Rejected Offers : ' . '5' ?></span>
+                          style="margin-left: 20px;"><?= 'Offers : ' . (count($rejectedOffers)+count($acceptedOffers) +count($waitingOffers)+ count($sentOffers)); ?></span>
+                    <span class="badge danger" style="margin-left: 20px;"><?= 'Waiting Offers : ' . count($waitingOffers) ?></span>
+                    <span class="badge success" style="margin-left: 20px;"><?= 'Accepting Offers : ' . count($acceptedOffers) ?></span>
+                    <span class="badge danger" style="margin-left: 20px;"><?= 'Rejected Offers : ' . count($rejectedOffers) ?></span>
                 </div>
             </div>
         </div>
@@ -22,6 +23,9 @@
             <input id="tab1" type="radio" name="tabs" checked>
             <label class="badge primary" style="color: #ddd" for="tab1">Books</label>
 
+            <input id="tab5" type="radio" name="tabs">
+            <label class="badge info" style="color: #ddd" for="tab5">Sent Offers</label>
+
             <input id="tab2" type="radio" name="tabs">
             <label class="badge warning" style="color: #ddd" for="tab2">Waiting Offers</label>
 
@@ -30,7 +34,38 @@
 
             <input id="tab4" type="radio" name="tabs">
             <label class="badge danger" style="color: #ddd" for="tab4">Rejected Offers</label>
+            <div class="content" id="content5">
+                <h3>Sent Offers</h3>
 
+                <table class="table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>OfferOwner</th>
+                        <th>OfferTarget</th>
+                        <th>OfferDescription</th>
+                        <th>OfferStatus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($sentOffers as $sKey => $sentOffer): ?>
+                        <tr>
+                            <td><?= $sentOffer->of_id; ?></td>
+                            <td><?= $sentOffer->ownerName; ?></td>
+                            <td><?= $sentOffer->targetName; ?></td>
+                            <td><?= $sentOffer->of_description; ?></td>
+                            <td><?php if ($sentOffer->of_status == 0): ?>
+                                    Waiting
+                                <?php elseif($sentOffer->of_status == 1): ?>
+                                    Accepted
+                                <?php else: ?>
+                                    Rejected
+                                <?php endif ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
             <div class="content" id="content1">
                 <h3>Books</h3>
                 <?php if ($books != null): ?>
@@ -63,54 +98,78 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Location</th>
+                        <th>OfferOwner</th>
+                        <th>OfferTarget</th>
+                        <th>OfferDescription</th>
+                        <th>OfferStatus</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Bob Dylan</td>
-                        <td>Musician</td>
-                        <td>
-                            <span class="badge success">Accept</span>
-                            <span class="badge danger">Reject</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Eric Clapton</td>
-                        <td>Musician</td>
-                        <td>
-                            <span class="badge success">Accept</span>
-                            <span class="badge danger">Reject</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Daniel Kahneman</td>
-                        <td>Psychologist</td>
-                        <td>
-                            <span class="badge success">Accept</span>
-                            <span class="badge danger">Reject</span>
-                        </td>
-                    </tr>
+                    <?php foreach ($waitingOffers as $sKey => $sentOffer): ?>
+                        <tr>
+                            <td><?= $sentOffer->of_id; ?></td>
+                            <td><?= $sentOffer->ownerName; ?></td>
+                            <td><?= $sentOffer->targetName; ?></td>
+                            <td><?= $sentOffer->of_description; ?></td>
+                            <td><?php if ($sentOffer->of_status == 0): ?>
+                                    <a href="/offer/reject/<?= $sentOffer->of_id; ?>" style="background-image: none;" class="badge danger">Reject</a>
+                                    <a href="/offer/accept/<?= $sentOffer->of_id; ?>" style="background-image: none;" class="badge success">Accept</a>
+                                <?php elseif($sentOffer->of_status == 1): ?>
+                                    Accepted
+                                <?php else: ?>
+                                    Rejected
+                                <?php endif ?>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
             <div class="content" id="content3">
-                <p>
-                    Bacon ipsum dolor sit amet beef venison beef ribs kielbasa...
-                </p>
-                <p>
-                    Brisket meatball turkey short loin boudin leberkas meatloaf...
-                </p>
+                <h3>Accepted Offers</h3>
+                <table class="table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>OfferOwner</th>
+                        <th>OfferTarget</th>
+                        <th>OfferDescription</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($acceptedOffers as $sKey => $sentOffer): ?>
+                        <tr>
+                            <td><?= $sentOffer->of_id; ?></td>
+                            <td><?= $sentOffer->ownerName; ?></td>
+                            <td><?= $sentOffer->targetName; ?></td>
+                            <td><?= $sentOffer->of_description; ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
             </div>
             <div class="content" id="content4">
-                <p>
-                    Bacon ipsum dolor sit amet landjaeger sausage brisket...
-                </p>
+                <h3>Rejected Offers</h3>
+                <table class="table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>OfferOwner</th>
+                        <th>OfferTarget</th>
+                        <th>OfferDescription</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($rejectedOffers as $sKey => $sentOffer): ?>
+                        <tr>
+                            <td><?= $sentOffer->of_id; ?></td>
+                            <td><?= $sentOffer->ownerName; ?></td>
+                            <td><?= $sentOffer->targetName; ?></td>
+                            <td><?= $sentOffer->of_description; ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
