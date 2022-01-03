@@ -50,6 +50,7 @@ $routes->get('offer/reject/(:num)', 'OfferController::reject/$1');
 $routes->get('offer/accept/(:num)', 'OfferController::accept/$1');
 $routes->get('book/(:num)', 'BookController::getBookById/$1');
 $routes->get('profile/(:num)', 'User::profile/$1');
+$routes->get('profile', 'User::profile');
 
 
 /*

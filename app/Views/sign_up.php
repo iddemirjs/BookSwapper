@@ -46,7 +46,7 @@
         </div>
 
         <div class="sm-6" style="display: flex;align-items: end;flex-direction: row-reverse;">
-            <button type="submit" name="save-user" class="btn-outline-primary">SignUp</button>
+            <button type="submit" name="save-user" class="btn-outline-primary">Update</button>
         </div>
     </form>
 <!--
@@ -74,12 +74,7 @@
 </script>
 
 <style>
-    #imageDisplay{
-        display: block;
-        width: 60%;
-        margin: 10px auto;
-        border-radius: 50%;
-    }
+
 </style>
 
 <?= view('sections/footer') ?>

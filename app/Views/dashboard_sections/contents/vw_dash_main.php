@@ -25,17 +25,20 @@
                         <div class="widget-body row">
                             <div class="col-xs-4">
                                 <div class="text-center p-h-md" style="border-right: 2px solid #eee">
-                                    <h2 class="fz-xl fw-400 m-0" data-plugin="counterUp">26</h2>
+                                    <h6 class="fz-xl fw-400 m-0" >Book</h6>
+                                    <h2 class="fz-xl fw-400 m-0" data-plugin="counterUp"><?= $bookSize; ?></h2>
                                 </div>
                             </div><!-- END column -->
                             <div class="col-xs-4">
                                 <div class="text-center p-h-md" style="border-right: 2px solid #eee">
-                                    <h2 class="fz-xl fw-400 m-0" data-plugin="counterUp">75</h2>
+                                    <h6 class="fz-xl fw-400 m-0" >Offer</h6>
+                                    <h2 class="fz-xl fw-400 m-0" data-plugin="counterUp"><?= $offerSize; ?></h2>
                                 </div>
                             </div><!-- END column -->
                             <div class="col-xs-4">
                                 <div class="text-center p-h-md">
-                                    <h2 class="fz-xl fw-400 m-0" data-plugin="counterUp">32</h2>
+                                    <h2 class="fz-xl fw-400 m-0" >User</h2>
+                                    <h2 class="fz-xl fw-400 m-0" data-plugin="counterUp"><?= $userSize; ?></h2>
                                 </div>
                             </div><!-- END column -->
                         </div><!-- .widget-body -->
@@ -50,11 +53,11 @@
                             <div class="media">
                                 <div class="media-left">
                                     <div class="icon icon-circle m-0 m-r-md b-0 primary text-white" style="width: 90px; height: 90px; line-height: 90px;">
-                                        <i class="fa fa-2x fa-internet-explorer"></i>
+                                        <i class="fa fa-2x fa-warning" style="font-size: 50px;line-height: 90px;"></i>
                                     </div>
                                 </div>
                                 <div class="media-body p-b-md p-t-xs">
-                                    <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt quaerat repellendus est, voluptate cupiditate, iusto!</p>
+                                    <p class="m-0" style="line-height: 85px">Buradan sadece data edit yapılabilir</p>
                                 </div>
                             </div><!-- .media -->
                         </div><!-- .widget-body -->
@@ -152,7 +155,7 @@
                 <div class="col-md-12">
                     <div class="widget">
                         <header class="widget-header">
-                            <h4 class="widget-title">Service Orders</h4>
+                            <h4 class="widget-title">Last Offers</h4>
                         </header>
                         <hr class="widget-separator"/>
                         <div class="widget-body">
@@ -160,63 +163,33 @@
                                 <table class="table no-cellborder">
                                     <thead>
                                     <tr>
-                                        <th>Service Name</th>
-                                        <th>Customer Name</th>
-                                        <th>Priority</th>
-                                        <th>Total Cost</th>
-                                        <th>Current Stage</th>
-                                        <th>Delivery Date</th>
+                                        <th>Offer id</th>
+                                        <th>Offer Creator</th>
+                                        <th>Offer Target User</th>
+                                        <th>Offer Description</th>
+                                        <th>Current State</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="text-info">Firm Website</td>
-                                        <td>John Doe</td>
-                                        <td>High</td>
-                                        <td>120$</td>
-                                        <td><span class="label label-info">Initiation</span></td>
-                                        <td>06/03/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-success">Security Test</td>
-                                        <td>Jane Doe</td>
-                                        <td>High</td>
-                                        <td>2500$</td>
-                                        <td><span class="label label-success">System Analysis</span></td>
-                                        <td>05/15/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-warning">Branches Linking</td>
-                                        <td>Diana Aid</td>
-                                        <td>Normal</td>
-                                        <td>1500$</td>
-                                        <td><span class="label label-warning">System Design</span></td>
-                                        <td>05/26/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-purple">Resources Optimization</td>
-                                        <td>Sara Adams</td>
-                                        <td>Low</td>
-                                        <td>1300$</td>
-                                        <td><span class="label label-purple">Specification</span></td>
-                                        <td>06/02/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-pink">Office Automation</td>
-                                        <td>Ibrahim Ali</td>
-                                        <td>Normal</td>
-                                        <td>7200$</td>
-                                        <td><span class="label label-pink">Implementation</span></td>
-                                        <td>06/13/2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-danger">System Recovery</td>
-                                        <td>Smith Adams</td>
-                                        <td>Normal</td>
-                                        <td>1000$</td>
-                                        <td><span class="label label-danger">Maintenance</span></td>
-                                        <td>06/02/2016</td>
-                                    </tr>
+                                    <?php foreach ($offers as $key => $offer): ?>
+                                        <tr>
+                                            <td class="text-info"><?= $offer->of_id; ?></td>
+                                            <td><?= $offer->ownerName; ?></td>
+                                            <td><?= $offer->targetName; ?></td>
+                                            <td><?=$offer->of_description?></td>
+                                            <td>
+                                            <td><?php if ($offer->of_status == 0): ?>
+                                                    <span class="label label-info">Waiting</span>
+                                                <?php elseif($offer->of_status == 1): ?>
+                                                    <span class="label label-success">Accepted</span>
+                                                <?php else: ?>
+                                                    <span class="label label-danger">Rejected</span>
+                                                <?php endif ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                    
+                                    
                                     </tbody>
                                 </table>
                             </div>

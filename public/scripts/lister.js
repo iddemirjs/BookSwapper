@@ -61,7 +61,7 @@ $(document).ready(function () {
             $(".secondsForRedirect").html(count);
             if (count == 0) {
                 clearInterval(countdown);
-                window.open('/user', "_self");
+                window.open('/profile', "_self");
             }
             count--;
         }, 1000);
@@ -85,6 +85,41 @@ $(document).ready(function () {
             console.log("complete");
         });
     });
+    $("#book_author").on('change',function (event) {
+        let data = $(this).val();
+        if (data)
+            window.location = "/bookcontroller/sort_by_author/"+data;
+    });
+    $("#book_categories").on('change',function (event) {
+        let data = $(this).val();
+        if (data)
+            window.location = "/bookcontroller/sort_by_category/"+data;
+    });
+    $(".editBook").on('click',function (event) {
+       let bookId = $(this).data('bookid');
+       window.location = "/bookcontroller/book_update/"+bookId;
+    });
+    $('.editProfile').on('click',function (events) {
+       let userId = $(this).data('id');
+       window.location = '/user/go_update_user';
+    });
+
+    $(".exploder").click(function(){
+
+        $(this).toggleClass("btn-success btn-danger");
+
+        $(this).children("span").toggleClass("glyphicon-search glyphicon-zoom-out");
+
+        $(this).closest("tr").next("tr").toggleClass("hide");
+
+        if($(this).closest("tr").next("tr").hasClass("hide")){
+            $(this).closest("tr").next("tr").children("td").slideUp();
+        }
+        else{
+            $(this).closest("tr").next("tr").children("td").slideDown(350);
+        }
+    });
+
 });
 
 function scrollDown() {

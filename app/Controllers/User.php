@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Entities\User as UserEntity;
+use App\Models\BookModel;
+use App\Models\OfferLineModel;
 use App\Models\OfferModel;
 use App\Models\UserModel;
 use CodeIgniter\Model;
@@ -32,6 +34,9 @@ class User extends BaseController
 
     public function profile($userId = -1)
     {
+        if (session()->get('user') && $userId == -1) {
+            $userId = session()->get('user')['usr_id'];
+        }
         $offerModel = new OfferModel();
         $user = Model('UserModel')->find($userId);
         if (!$user) {
@@ -63,6 +68,11 @@ class User extends BaseController
         join('tbl_user as o', 'o.usr_id=of_creatorUserId')->
         where(['of_creatorUserId' => $userId])->findAll();
 
+        foreach ($sentOffers as $sKey => $sentOffer){
+            $sentOffers[$sKey]->books = $this->getOfferBooks($sentOffer->of_id);
+        }
+
+
         $user_books = $this->get_user_books_details($userId);
 
         return view('profilePaper', [
@@ -75,6 +85,13 @@ class User extends BaseController
             'acceptedOffers' => $acceptedOffers,
             'waitingOffers' => $waitingOffers,
         ]);
+    }
+
+    public function getOfferBooks($offerId)
+    {
+        return (new OfferLineModel())->select('t.*')->select('tbl_offerLine.*')->
+        join('tbl_book as t','line_bookId=t.bk_id')->
+        where(['line_offerId'=>$offerId])->findAll();
     }
 
     public function view_profile($userId = -1)
@@ -136,7 +153,7 @@ class User extends BaseController
 
     public function create()
     {
-        define ('img_upload_dir', realpath(dirname('user_images')));
+        define('img_upload_dir', realpath(dirname('user_images')));
         $validation = \Config\Services::validation();
 
         if ($validation->run($this->request->getPost(), 'validUserNew')) {
@@ -145,7 +162,7 @@ class User extends BaseController
             $user->fill($data);
 
             $imageName = time() . $_FILES['usr_img_url']['name'];
-            $target =  img_upload_dir . '\uploads\user_images\\' . $imageName;
+            $target = img_upload_dir . '/uploads/user_images/' . $imageName;
 
             $user->usr_img_url = $imageName;
 
@@ -242,6 +259,55 @@ class User extends BaseController
         }
 
         return $this->response->setJSON($response);
+    }
+
+    public function go_update_user()
+    {
+        if (session()->get('user') === null){
+            return json_encode(['status'=>false,'message'=>'please login']);
+        }
+        $user = session()->get('user');
+        return view('user_edit', ['user' => $user]);
+    }
+
+    public function update_user($id)
+    {
+        define('img_upload_dir', realpath(dirname('user_images')));
+        $validation = \Config\Services::validation();
+
+        if ($validation->run($this->request->getPost(), 'validUserNew')) {
+            $data = $this->request->getPost();
+            $userModel = new UserModel();
+            $user = new \App\Entities\User();
+            $user->fill($data);
+
+            $imageName = time() . $_FILES['usr_img_url']['name'];
+            $target = img_upload_dir . '/uploads/user_images/' . $imageName;
+
+            $user->usr_img_url = $imageName;
+
+            move_uploaded_file($_FILES['usr_img_url']['tmp_name'], $target);
+            $userModel->update($id, $user);
+
+            $tmp = session()->get('user');
+
+
+            session()->set('user', [
+                'usr_username' => $user->usr_username,
+                'usr_name' => $user->usr_name,
+                'usr_surname' => $user->usr_surname,
+                'usr_mail' => $user->usr_mail,
+                'usr_img_url' => $user->usr_img_url,
+                'usr_id' => $tmp['usr_id'],
+                'usr_type' => $tmp['usr_type'],
+            ]);
+
+
+            return redirect()->to(base_url('user/go_update_user'));
+        } else {
+            $this->alert_function($validation->getErrors());
+            return redirect()->to(base_url('user/go_update_user'));
+        }
     }
 
     public function logout()
