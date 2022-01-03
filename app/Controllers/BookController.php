@@ -105,7 +105,6 @@ class BookController extends BaseController
             move_uploaded_file($_FILES['bk_mainImgUrl']['tmp_name'], $target);
 
             $bookModel = new BookModel();
-            var_dump($book);
             $bookModel->update($book->bk_id,$book);
             return view('main');
         }else {

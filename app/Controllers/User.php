@@ -219,7 +219,7 @@ class User extends BaseController
                     'usr_username' => $user->usr_username,
                     'usr_id' => $user->usr_id,
                     'usr_name' => $user->usr_name,
-                    'usr_surname' => $user->usr_username,
+                    'usr_surname' => $user->usr_surname,
                     'usr_mail' => $user->usr_mail,
                     'usr_type' => $user->usr_type,
                     'usr_img_url' => $user->usr_img_url,
