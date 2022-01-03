@@ -108,14 +108,13 @@ class BookController extends BaseController
             $book->fill($data);
 
             $imageName = time() . $_FILES['bk_mainImgUrl']['name'];
-            $target =  img_upload_dir . '\uploads\book_images\\' . $imageName;
+            $target =  img_upload_dir . '/uploads/book_images/' . $imageName;
 
             $book->bk_mainImgUrl = $imageName;
 
             move_uploaded_file($_FILES['bk_mainImgUrl']['tmp_name'], $target);
 
             $bookModel = new BookModel();
-            var_dump($book);
             $bookModel->update($book->bk_id,$book);
             return view('main');
         }else {

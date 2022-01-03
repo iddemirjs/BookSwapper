@@ -32,6 +32,9 @@ class User extends BaseController
 
     public function profile($userId = -1)
     {
+        if (session()->get('user') && $userId == -1) {
+            $userId = session()->get('user')['usr_id'];
+        }
         $offerModel = new OfferModel();
         $user = Model('UserModel')->find($userId);
         if (!$user) {
@@ -145,7 +148,7 @@ class User extends BaseController
             $user->fill($data);
 
             $imageName = time() . $_FILES['usr_img_url']['name'];
-            $target =  img_upload_dir . '\uploads\user_images\\' . $imageName;
+            $target =  img_upload_dir . '/uploads/user_images/' . $imageName;
 
             $user->usr_img_url = $imageName;
 

@@ -11,7 +11,7 @@
     <div class="container" style="display: flex">
             <div class="form-inline">
                 <label for="paperSelects1" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;"> Author: </label>
-                <select id="paperSelects1">
+                <select id="book_author">
                     <?php foreach ($authors as $key => $author): ?>
                         <option value="<?= $author->auth_id; ?>"><?= $author->auth_name . ' ' . $author->auth_surname;; ?></option>
                     <?php endforeach ?>
@@ -19,7 +19,7 @@
             </div>
             <div class="form-inline" style="float: right">
                 <label for="paperSelects1" style="font-family: Patrick Hand SC,sans-serif;font-weight: 400;"> Category: </label>
-                <select id="paperSelects1">
+                <select id="book_categories">
                     <?php foreach ($categories as $key => $category): ?>
                         <option value="<?= $category->cat_id; ?>"><?= $category->cat_name; ?></option>
                     <?php endforeach ?>

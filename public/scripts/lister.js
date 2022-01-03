@@ -61,7 +61,7 @@ $(document).ready(function () {
             $(".secondsForRedirect").html(count);
             if (count == 0) {
                 clearInterval(countdown);
-                window.open('/user', "_self");
+                window.open('/profile', "_self");
             }
             count--;
         }, 1000);
@@ -84,6 +84,23 @@ $(document).ready(function () {
         }).always(function () {
             console.log("complete");
         });
+    });
+    $("#book_author").on('change',function (event) {
+        let data = $(this).val();
+        window.location = "/bookcontroller/sort_by_author/"+data;
+    });
+    $("#book_categories").on('change',function (event) {
+        let data = $(this).val();
+        window.location = "/bookcontroller/sort_by_category/"+data;
+    });
+    $(".editBook").on('click',function (event) {
+       let bookId = $(this).data('bookid');
+       window.location = "/bookcontroller/book_update/"+bookId;
+    });
+    $('.editProfile').on('click',function (events) {
+       let userId = $(this).data('id');
+
+       alert(userId);
     });
 });
 
