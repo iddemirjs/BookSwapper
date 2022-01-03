@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Entities\Author;
 use App\Entities\User as UserEntity;
+use App\Models\AuthorModel;
 use App\Models\UserModel;
 use CodeIgniter\Model;
 use function PHPUnit\Framework\equalTo;
@@ -132,6 +134,51 @@ class User extends BaseController
         }
     }
 
+    public function go_update_user(){
+        $user = session()->get('user');
+        return view('user_edit', ['user'=>$user]);
+    }
+
+    public function update_user($id)
+    {
+        define ('img_upload_dir', realpath(dirname('user_images')));
+        $validation = \Config\Services::validation();
+
+        if ($validation->run($this->request->getPost(), 'validUserNew')) {
+            $data = $this->request->getPost();
+            $userModel = new UserModel();
+            $user = new \App\Entities\User();
+            $user->fill($data);
+
+            $imageName = time() . $_FILES['usr_img_url']['name'];
+            $target =  img_upload_dir . '\uploads\user_images\\' . $imageName;
+
+            $user->usr_img_url = $imageName;
+
+            move_uploaded_file($_FILES['usr_img_url']['tmp_name'], $target);
+            $userModel->update($id, $user);
+
+            $tmp = session()->get('user');
+
+
+            session()->set('user', [
+                'usr_username' => $user->usr_username,
+                'usr_name' => $user->usr_name,
+                'usr_surname' => $user->usr_surname,
+                'usr_mail' => $user->usr_mail,
+                'usr_img_url' => $user->usr_img_url,
+                'usr_id' => $tmp['usr_id'],
+                'usr_type' => $tmp['usr_type'],
+            ]);
+
+
+            return redirect()->to(base_url('user/go_update_user'));
+        } else {
+            $this->alert_function($validation->getErrors());
+            return redirect()->to(base_url('user/go_update_user'));
+        }
+    }
+
     public function login()
     {
         $validation = \Config\Services::validation();
@@ -144,7 +191,7 @@ class User extends BaseController
                     'usr_username' => $user->usr_username,
                     'usr_id' => $user->usr_id,
                     'usr_name' => $user->usr_name,
-                    'usr_surname' => $user->usr_username,
+                    'usr_surname' => $user->usr_surname,
                     'usr_mail' => $user->usr_mail,
                     'usr_type' => $user->usr_type,
                     'usr_img_url' => $user->usr_img_url,
